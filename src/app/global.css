@@ -1,0 +1,185 @@
+.displaying{
+    display: flex;
+    flex-direction: row!important;
+}
+.relativePosition{
+    position: relative;
+}
+.width100{
+    width: auto!important;
+}
+.forty{
+    font-weight: 700!important;
+    color: white;
+    font-size: 14px!important;
+    background-color: #FFC800;
+}
+.marginAuto{
+    margin: auto;
+}
+.welcomeText{
+    font-weight: 600!important;
+    font-size: 30px!important;
+    margin-left: 20px!important;
+}
+.margin10{
+    margin-bottom: 10px!important;
+    color: white!important;
+    font-weight: 600!important;
+}
+.margin10:hover {
+    color: #FFC800!important;
+    background-color: #fff2de!important;
+}
+.logoText{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0px;
+    background: #FFC800;
+    justify-content: center;
+}
+.flexText{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.iconTask{
+    font-size: 35px;
+    color: #b3b0b0;
+}
+.iconText{
+    color: #b3b0b0;
+}
+.boxBorder{
+    border: 1px solid #ccc;
+    background: #cccccc3b;
+    min-height: 83vh;
+    height: 83vh;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.absolutePosition{
+    position: absolute;
+    top: 50px;
+    right: 32px;
+}
+.flexing{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+.flexi{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+.width50{
+    width: 50%;
+}
+.marginL{
+    margin-right: 25px;
+}
+.maxWidth{
+    width: 5vw!important;
+    -webkit-flex: none!important;
+}
+.maxWidth1{
+    width: 25vw!important;
+    -webkit-flex: none!important;
+}
+.Center{
+    display: flex!important;
+    align-items: center!important;
+}
+.boxSize{
+    display: flex;
+    gap: 15px;
+    height: 65vh;
+}
+.addWidget{
+    width: auto!important;
+    display: flex!important;
+    font-weight: 700!important;
+    font-size: 15px!important;
+}
+.errorStatement{
+    display: flex;
+    justify-content: center;
+    padding: 7px 0px;
+    /* background: aliceblue; */
+    color: red;
+    font-weight: 700;
+}
+.addWidgetSpace{
+    width: 110px!important;
+    border-radius: 30px!important;
+    background-color: #FFC800!important;
+}
+.flexed{
+    display: flex;
+    gap: 2px;
+}
+.flexedIcon{
+    color: #FFC800;
+}
+.textView{
+    width: 90%;
+    height: 90%;
+    background: #cccccc3b;
+    padding: 20px 20px;
+    margin: auto;
+    color: #818181;
+    border: 1px solid #ccc;
+}
+.flexedDiv{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 40px;
+
+}
+.viewTaskTab{
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    height: 95%;
+}
+.hoverPrimary{
+    font-weight: 700;
+    color: white!important;
+}
+.hoverPrimary:hover{
+    color: #FFC800!important;
+    background-color: #fff2de!important;
+    font-weight: 700;
+}
+.roundCount{
+    width: 30px;
+    padding: 2px;
+    align-items: center;
+    color: white;
+    background: #FFC800;
+    height: 30px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.arrowIcon{
+    display: flex;
+    justify-content: flex-end;
+}
+.chipCss{
+    width: 31px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-overflow: unset!important;
+}
