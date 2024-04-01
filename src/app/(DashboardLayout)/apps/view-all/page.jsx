@@ -15,11 +15,11 @@ import ContactList from '@/app/(DashboardLayout)/components/apps/contacts/Contac
 import ContactSearch from '@/app/(DashboardLayout)/components/apps/contacts/ContactSearch';
 import ContactFilter from '@/app/(DashboardLayout)/components/apps/contacts/ContactFilter';
 import AppCard from '@/app/(DashboardLayout)/components/shared/AppCard';
-import OneDayList from '../../../layout/vertical/sidebar/OneDayList';
-import CalenderList from '../../../layout/vertical/sidebar/CalenderList';
+import OneDayList from '../../layout/vertical/sidebar/OneDayList';
+import CalenderList from '../../layout/vertical/sidebar/CalenderList';
 const drawerWidth = 240;
 const secdrawerWidth = 320;
-import TaskPanel from '../../../components/dashboards/modern/TaskPanel';
+import TaskPanel from '../../components/dashboards/modern/TaskPanel';
 const ViewAll = ({params}) => {
   // const router = useRouter()
   // console.log(params.id,'aa')
