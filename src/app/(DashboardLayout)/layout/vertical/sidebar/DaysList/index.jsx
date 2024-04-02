@@ -62,7 +62,7 @@ export default function DaysList({ item, level, pathDirect, hideMenu, onClick })
 
     return (
         <List component="li" disablePadding key={item?.id && item.title}>
-            <Link href={`/apps/view-all`}>
+            <Link href={`/apps/view-all/${item.id}`}>
             <ListItemStyled
             //   {...listItemProps}
             //   disabled={item?.disabled}

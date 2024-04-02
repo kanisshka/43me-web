@@ -1,4 +1,4 @@
-// File: C:\Users\KANISSHKA\Desktop\Ekalah\43me-web-app\src\app\(DashboardLayout)\page.jsx
+// File: C:\Users\KANISSHKA\Desktop\New folder\43me-web\src\app\(DashboardLayout)\page.jsx
 import * as entry from '../../../../src/app/(DashboardLayout)/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

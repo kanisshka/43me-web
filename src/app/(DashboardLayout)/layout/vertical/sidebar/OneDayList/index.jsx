@@ -61,7 +61,7 @@ export default function OneDayList({ item, level, pathDirect, hideMenu, onClick 
 
     return (
         <List component="li" disablePadding key={item?.id && item.title} >
-            <Link href={`/apps/view-all`}>
+            {/* <Link href={`/apps/view-all`}> */}
             <ListItemStyled
             //   {...listItemProps}
             //   disabled={item?.disabled}
@@ -95,7 +95,7 @@ export default function OneDayList({ item, level, pathDirect, hideMenu, onClick 
             />
           )} */}
             </ListItemStyled>
-            </Link>
+            {/* </Link> */}
         </List>
     );
 }
