@@ -17,14 +17,14 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@/store/store';
 
-export default function OneDayList({ item, level, pathDirect, hideMenu, onClick }) {
+const OneDayList = ({ item, onClick }) => {
     const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
     const customizer = useSelector((state) => state.customizer);
     const Icon = item?.icon;
     const theme = useTheme();
     const { t } = useTranslation();
-    const itemIcon =
-        level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
+    // const itemIcon =
+    //     level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
 
     const ListItemStyled = styled(ListItemButton)(() => ({
         whiteSpace: 'nowrap',
@@ -60,8 +60,8 @@ export default function OneDayList({ item, level, pathDirect, hideMenu, onClick 
     };
 
     return (
-        <List component="li" disablePadding key={item?.id && item.title} >
-            {/* <Link href={`/apps/view-all`}> */}
+        <List component="li" disablePadding key={item?.id && item.title} onClick={() => onClick(item)}>
+            <Link href={`#`}>
             <ListItemStyled
             //   {...listItemProps}
             //   disabled={item?.disabled}
@@ -70,7 +70,7 @@ export default function OneDayList({ item, level, pathDirect, hideMenu, onClick 
             >
 
                 <ListItemText className='maxWidth'>
-                    {t(`${item?.weekday}`)}
+                    {t(`${item?.description}`)}
                 </ListItemText>
                 {/* <ListItemText  className='maxWidth1' >
                     {t(`${item?.date}`)}
@@ -95,15 +95,17 @@ export default function OneDayList({ item, level, pathDirect, hideMenu, onClick 
             />
           )} */}
             </ListItemStyled>
-            {/* </Link> */}
+            </Link>
         </List>
     );
 }
 
-OneDayList.propTypes = {
-    item: PropTypes.object,
-    level: PropTypes.number,
-    pathDirect: PropTypes.any,
-    hideMenu: PropTypes.any,
-    onClick: PropTypes.func,
-};
+// OneDayList.propTypes = {
+//     item: PropTypes.object,
+//     // level: PropTypes.number,
+//     // pathDirect: PropTypes.any,
+//     // hideMenu: PropTypes.any,
+//     onClick: PropTypes.func,
+// };
+
+ export default OneDayList

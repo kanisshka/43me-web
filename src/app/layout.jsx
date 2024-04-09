@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
 import { ThemeSettings } from "@/utils/theme/Theme";
-import { store } from "@/store/store";
+import { store,persistor } from "@/store/store";
 import { useSelector } from 'react-redux';
 // import { AppState } from "@/store/store";
 import { Provider } from "react-redux";
@@ -17,7 +17,7 @@ import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import "react-quill/dist/quill.snow.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { PersistGate } from 'redux-persist/integration/react'
 export const MyApp = ({ children }) => {
   const theme = ThemeSettings();
 
@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           {loading ? (
             // eslint-disable-next-line react/no-children-prop
             <MyApp children={children} />
@@ -63,6 +64,7 @@ export default function RootLayout({ children }) {
               <CircularProgress />
             </Box>
           )}
+          </PersistGate>
         </Provider>
       </body>
     </html>

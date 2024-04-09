@@ -35,6 +35,7 @@ import CallToActionTwoToneIcon from '@mui/icons-material/CallToActionTwoTone';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import WebAssetTwoToneIcon from '@mui/icons-material/WebAssetTwoTone';
 import { ViewComfyTwoTone, PaddingTwoTone, BorderOuter } from '@mui/icons-material';
+import AddTask from '@/app/(DashboardLayout)/components/dashboards/modern/AddTask';
 
 const SidebarWidth = '320px';
 
@@ -117,7 +118,8 @@ const Customizer = () => {
           <Typography className='addWidget'>Add Task</Typography>
         </Fab>
       </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
+      {open&&<AddTask onClose={handleClose} open={open}/>}
+      {/* <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <Typography variant="h5" mb={2} fontWeight={700}>
             Add New Task
@@ -125,7 +127,7 @@ const Customizer = () => {
           {/* <DialogContentText>
             To add new notes please enter your description and choose note colors. and press the
             submit button to add new note.
-          </DialogContentText> */}
+          </DialogContentText> 
           <TextField
             multiline
             rows={5}
@@ -195,7 +197,7 @@ const Customizer = () => {
             >
               {scolor === color.disp ? <IconCheck /> : ''}
             </Fab>
-          ))} */}
+          ))} 
         </DialogContent>
         <DialogActions>
           <Button  disabled={title === ''} onClick={handleClose} variant="contained">Save & Add New</Button>
@@ -212,7 +214,8 @@ const Customizer = () => {
             Save
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
+
       {/* <Drawer
         anchor="right"
         open={showDrawer}

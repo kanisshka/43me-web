@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import { useDispatch } from 'react-redux';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/navigation';
 import Typography from '@mui/material/Typography';
@@ -14,7 +15,9 @@ import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elem
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import AuthSocialButtons from './AuthSocialButtons';
 import axios from 'axios';
+import { login } from '@/utils/services';
 const AuthLogin = ({ title, subtitle, subtext }) => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const router = useRouter()
   const [error, setError] = useState('')
@@ -25,17 +28,16 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         email: email,
         password: password,
       };
-      const response = await axios(`${process.env.NEXT_PUBLIC_APP}auth/login`, {
-        method: 'POST',
-        data: data,
+      const response = await login(dispatch, {
+        email,
+        password,
       });
-      if (response.statusText==='OK') {
+      console.log(response,'res');
+      if (response) {
         router.push('/');
       } else {
         console.log(response)
         setError(response.data.message)
-        
-
       }
     } catch (error) {
       console.error('Error during login:', error);

@@ -59,7 +59,7 @@ export default function DaysList({ item, level, pathDirect, hideMenu, onClick })
         href: item?.external ? item?.href : '',
         target: item?.external ? '_blank' : '',
     };
-
+console.log(`/apps/view-all/${item.id}`,'id')
     return (
         <List component="li" disablePadding key={item?.id && item.title}>
             <Link href={`/apps/view-all/${item.id}`}>
@@ -71,7 +71,7 @@ export default function DaysList({ item, level, pathDirect, hideMenu, onClick })
             >
 
                 <ListItemText className='maxWidth'>
-                    {t(`${item?.weekday}`)}
+                    {t(`${item?.dayName}`)}
                 </ListItemText>
                 <ListItemText  className='maxWidth1' >
                     {t(`${item?.date}`)}

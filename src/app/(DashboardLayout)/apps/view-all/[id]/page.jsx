@@ -6,6 +6,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import Drawer from '@mui/material/Drawer';
+import {useSelector} from 'react-redux'
 import { useRouter } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
@@ -18,39 +19,57 @@ import AppCard from '@/app/(DashboardLayout)/components/shared/AppCard';
 import OneDayList from '../../../layout/vertical/sidebar/OneDayList';
 import CalenderList from '../../../layout/vertical/sidebar/CalenderList';
 const drawerWidth = 240;
+import moment from 'moment';
 const secdrawerWidth = 320;
 import TaskPanel from '../../../components/dashboards/modern/TaskPanel';
 const ViewAll = ({params}) => {
   // const router = useRouter()
-  // console.log(params.id,'aa')
+  console.log(params.id,'aa')
+const [tasks, setTasks] = useState()
+const [selectedTasks, setSelectedTasks] = useState()
+const user = useSelector((state) => state.user);
+
   const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(false);
   const [isRightSidebarOpen, setRightSidebarOpen] = useState(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const [selectedMenuItem, setSelectedMenuItem] = useState(false);
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMDc1ZjYzNTBiNjljMDVlYjYzMGMxNyIsInRva2VuX2NyZWF0aW9uX2RhdGUiOiIyMDI0LTAxLTI0VDA3OjU3OjA2KzAwOjAwIiwiaWF0IjoxNzA2MDgzMDI2fQ.eoSRnOjskhyoXEAiXRAk3ZkOZ5uNK6t8-FxmYr76nAk"
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = (item) => {
     setSelectedMenuItem(true);
-    console.log(selectedMenuItem)
+    setSelectedTasks(item);
+    console.log(item,"item")
   };
+  function checkDateFormat(paramsId) {
+    // Check if paramsId matches the format 'YYYY-MM'
+    return moment(paramsId, 'YYYY-MM', true).isValid();
+  }
+  
   useEffect(() => {
     const fetchData = async () => {
-      const data = {
-        is_month:false,
-        date:'2024-04-02'
+      let is_month = checkDateFormat(params.id);
+      let data;
+      if (is_month) {
+        data = {
+          is_month: is_month,
+          month: params.id
+        };
+      } else {
+        data = {
+          is_month: is_month,
+          date: params.id
+        };
       }
       console.log(data,"first")
       try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}/task-by-date`, data ,{
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}task-by-date`, data ,{
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.currentUser?.token}`,
           },
         });
   
-        // Handle the response data here
-        console.log(response,'res');
-    
+        setTasks(response.data.data)
+    // console.log(response.data.data,'response')
       
         // setCalEvents(transformedEvents)
       } catch (error) {
@@ -61,7 +80,17 @@ const ViewAll = ({params}) => {
   
     fetchData();
   }, [])
-  
+  const handleTaskEdit = (updatedTask) => {
+    // Find the index of the updated task in tasks array
+    const taskIndex = tasks.findIndex(task => task._id === updatedTask._id);
+    // If found, update the tasks state immutably
+    if (taskIndex !== -1) {
+      const updatedTasks = [...tasks];
+      updatedTasks[taskIndex] = updatedTask;
+      setTasks(updatedTasks);
+      setSelectedTasks(updatedTask);
+    }
+  };
   const Menuitems = [
     // {
     //   navlabel: false,
@@ -193,20 +222,20 @@ const ViewAll = ({params}) => {
         <Typography m={1} variant="subtitle1" fontWeight={600}>
           Tasks
         </Typography>
-          <Typography m={1} variant="subtitle2" fontWeight={600}>OPEN(6)</Typography>
+          <Typography m={1} variant="subtitle2" fontWeight={600}>OPEN({tasks?.length})</Typography>
      
           
           <Box sx={{ px: 2 }} >
-            <List sx={{ pt: 0 }} onClick={() => handleMenuItemClick()} >
-              {Menuitems.map((item) => (
-                <OneDayList item={item} key={item.id} />
+            <List sx={{ pt: 0 }} >
+              {tasks?.map((item) => (
+                <OneDayList item={item} key={item._id} onClick={() => handleMenuItemClick(item)}/>
               ))}
             </List>
           </Box>
           </div>
           <Box sx={{ px: 2 }} className="width50">
           {selectedMenuItem ? <Box sx={{ px: 2 }} className='boxBorder'>
-           <TaskPanel />
+           <TaskPanel item={selectedTasks} editing={false} key={selectedTasks._id} onTaskEdit={handleTaskEdit}/>
             </Box> : <Box sx={{ px: 2 }} className='boxBorder'>
             {/* <List sx={{ pt: 0 }} >
               {CalenderItems.map((item) => (

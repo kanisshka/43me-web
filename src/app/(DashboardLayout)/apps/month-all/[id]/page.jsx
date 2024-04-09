@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Box, CardContent, Grid, Typography, List } from '@mui/material';
 import { TaskList } from '@/utils/apiCalls';
 import Button from '@mui/material/Button';
+import axios from 'axios'
 import Drawer from '@mui/material/Drawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
@@ -13,14 +14,13 @@ import ContactList from '@/app/(DashboardLayout)/components/apps/contacts/Contac
 import ContactSearch from '@/app/(DashboardLayout)/components/apps/contacts/ContactSearch';
 import ContactFilter from '@/app/(DashboardLayout)/components/apps/contacts/ContactFilter';
 import AppCard from '@/app/(DashboardLayout)/components/shared/AppCard';
-import DaysList from '../../layout/vertical/sidebar/DaysList';
-import CalenderList from '../../layout/vertical/sidebar/CalenderList';
+import DaysList from '@/app/(DashboardLayout)/layout/vertical/sidebar/DaysList';
 const drawerWidth = 240;
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 const secdrawerWidth = 320;
 
-const Tasks = () => {
+const MonthTasks = ({params}) => {
   const user = useSelector((state) => state.user);
   console.log(user,'userinfo')
   const [list, setList] = useState()
@@ -34,12 +34,16 @@ const Tasks = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = {
-        is_month: 'false',
-        date: getCurrentDate(),
+        is_month: 'true',
+        month: params.id,
       };
       try {
-        const response = await TaskList(user?.currentUser?.token, data);
-        // console.log(response, 'responseup');
+         const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}task-by-date`, data ,{
+            headers: {
+              Authorization: `Bearer ${user?.currentUser?.token}`,
+            },
+          });
+        console.log(response, 'responseup');
         setList(response.data);
       } catch (error) {
         console.log(error);
@@ -180,18 +184,8 @@ const Tasks = () => {
           </Typography>
           <Box sx={{ px: 2 }}>
             <List sx={{ pt: 0 }}>
-              {list?.data[0]?.data.map((item) => (
+              {list?.data?.map((item) => (
                 <DaysList item={item} key={item.id} />
-              ))}
-            </List>
-          </Box>
-          <Typography m={1} variant="subtitle1" fontWeight={600}>
-            Months
-          </Typography>
-          <Box sx={{ px: 2 }}>
-            <List sx={{ pt: 0 }}>
-              {list?.data[1]?.data.map((item) => (
-                <CalenderList item={item} key={item.id} />
               ))}
             </List>
           </Box>
@@ -263,4 +257,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default MonthTasks;

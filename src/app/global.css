@@ -8,6 +8,7 @@
 .width100{
     width: auto!important;
 }
+
 .forty{
     font-weight: 700!important;
     color: white;
@@ -135,6 +136,53 @@
     margin: auto;
     color: #818181;
     border: 1px solid #ccc;
+}
+.SaveEdit{
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #FFC800;
+    color: white;
+    background-color: #FFC800;
+}
+.hoverCursor{
+    cursor: pointer;
+}
+.SaveEditCancel{
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #cccccc3b;
+}
+.SaveCloseDiv{width: 100%;
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+.textInputEdit{
+    width: 100%;
+    font-family: inherit;
+    height: 90%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    justify-content: flex-start;
+    display: flex;
+    margin-bottom: 15px;
+}
+.textViewEdit{
+    width: 90%;
+    height: 90%;
+    background: #fff;
+    padding: 20px 20px;
+    margin: auto;
+    color: #000;
+    border: 1px solid #000;
 }
 .flexedDiv{
     display: flex;

@@ -61,7 +61,7 @@ export default function CalenderList({ item, level, pathDirect, hideMenu, onClic
 
     return (
         <List component="li" disablePadding key={item?.id && item.title}>
-            <Link href={`/apps/view-all`}>
+            <Link href={`/apps/view-all/${item.id}`}>
             <ListItemStyled
             //   {...listItemProps}
             //   disabled={item?.disabled}
@@ -73,7 +73,7 @@ export default function CalenderList({ item, level, pathDirect, hideMenu, onClic
                     {t(`${item?.date}`)}
                 </ListItemText>
                 <ListItemText  className='maxWidth1' >
-                    {t(`${item?.weekday}`)}
+                    {t(`${item?.dayName}`)}
                 </ListItemText>
                     <ListItemText >
                 <div className='roundCount'>
