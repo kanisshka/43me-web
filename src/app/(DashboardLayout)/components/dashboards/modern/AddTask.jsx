@@ -30,12 +30,12 @@ import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 const AddTask = ({ onClose, open }) => {
-  const router= useRouter();
+  const router = useRouter();
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState('');
   const [value, setValue] = useState('Never');
-  const [start, setStart] = useState();
-  const [startMonth, setStartMonth] = useState();
+  const [start, setStart] = useState(new Date());
+  const [startMonth, setStartMonth] = useState(new Date());
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue);
   };
@@ -50,8 +50,9 @@ const AddTask = ({ onClose, open }) => {
   }
   function getDayOfMonth(dateString) {
     const date = new Date(dateString);
-    const monthOfYear = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero and slice last two characters
-    return monthOfYear;
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero and slice last two characters
+  return year + '-' + month;
   }
 
   const handleStartChange = (newValue) => {
@@ -65,35 +66,36 @@ const AddTask = ({ onClose, open }) => {
   const handleAddTask = async () => {
     let data = {
       description: title,
-      is_month: monthly===true? "true" :"false",
-      date: formatDate(start),
-      month: getDayOfMonth(start),
+      is_month: monthly === true ? "true" : "false",
+      date: monthly === true ? "" : formatDate(start),
+      month: monthly === true ? getDayOfMonth(startMonth) : getDayOfMonth(start),
+      // month:'2024-06',
       scheduled: value,
       repeatCount: value === 'Never' ? 0 : sliderValue,
     }
     console.log(data)
-    try{
-        const response = await AddNewTask(user?.currentUser?.token,data)
-        console.log(response,'response')
-        if(response?.status===200){
-          onClose();
-          router.push('/apps/tasks')
-        }
+    try {
+      const response = await AddNewTask(user?.currentUser?.token, data)
+      console.log(response, 'response')
+      if (response?.status === 200) {
         onClose();
-    }catch(err){
+        router.push('/apps/tasks')
+      }
       onClose();
-        console.log(err);
+    } catch (err) {
+      onClose();
+      console.log(err);
     }
   }
   const getSliderMinMax = () => {
     switch (value) {
-      case 'Daily':
+      case 'daily':
         return { min: 1, max: 365 };
-      case 'Weekly':
+      case 'weekly':
         return { min: 1, max: 52 };
-      case 'Biweekly':
+      case 'biweekly':
         return { min: 1, max: 26 };
-      case 'Monthly':
+      case 'monthly':
         return { min: 1, max: 12 };
       default:
         return { min: 1, max: 3 }; // Default values for other cases
@@ -165,9 +167,9 @@ const AddTask = ({ onClose, open }) => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        {monthly!==true &&  <Accordion>
           <AccordionSummary
-          expandIcon={<IconChevronDown />}
+            expandIcon={<IconChevronDown />}
             aria-controls="panel1a-content"
             id="repeat_task_date"
           >
@@ -183,11 +185,11 @@ const AddTask = ({ onClose, open }) => {
                 onChange={handleChange2}
                 className="displaying"
               >
-                <FormControlLabel value="Never" control={<CustomRadio />} label="Never" />
-                <FormControlLabel value="Daily" control={<CustomRadio />} label="Daily" />
-                <FormControlLabel value="Weekly" control={<CustomRadio />} label="Weekly" />
-                <FormControlLabel value="Biweekly" control={<CustomRadio />} label="Biweekly" />
-                <FormControlLabel value="Monthly" control={<CustomRadio />} label="Monthly" />
+                <FormControlLabel value="never" control={<CustomRadio />} label="Never" />
+                <FormControlLabel value="daily" control={<CustomRadio />} label="Daily" />
+                <FormControlLabel value="weekly" control={<CustomRadio />} label="Weekly" />
+                <FormControlLabel value="biweekly" control={<CustomRadio />} label="Biweekly" />
+                <FormControlLabel value="monthly" control={<CustomRadio />} label="Monthly" />
               </RadioGroup>
             </FormControl>
             {value !== 'Never' && (
@@ -205,7 +207,7 @@ const AddTask = ({ onClose, open }) => {
               </Box>
             )}
           </AccordionDetails>
-        </Accordion>
+        </Accordion>}
         {/* {repeat.map((color) => (
             <Fab
               color={color.disp}

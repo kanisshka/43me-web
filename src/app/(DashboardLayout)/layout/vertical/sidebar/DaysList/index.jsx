@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@/store/store';
 
-export default function DaysList({ item, level, pathDirect, hideMenu, onClick }) {
+const DaysList = ({ item, level, pathDirect, hideMenu, onClick }) => {
     const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
     const customizer = useSelector((state) => state.customizer);
     const Icon = item?.icon;
@@ -101,10 +101,11 @@ console.log(`/apps/view-all/${item.id}`,'id')
     );
 }
 
-DaysList.propTypes = {
-    item: PropTypes.object,
-    level: PropTypes.number,
-    pathDirect: PropTypes.any,
-    hideMenu: PropTypes.any,
-    onClick: PropTypes.func,
-};
+export default DaysList;
+// DaysList.propTypes = {
+//     item: PropTypes.object,
+//     level: PropTypes.number,
+//     pathDirect: PropTypes.any,
+//     hideMenu: PropTypes.any,
+//     onClick: PropTypes.func,
+// };
