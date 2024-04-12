@@ -8,13 +8,14 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
 import * as dropdownData from './data';
-
+import { useDispatch } from 'react-redux';
 import { IconMail } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
-
+import { logout } from '@/store/user/userSlice';
 
 const Profile = () => {
+  const dispatch = useDispatch()
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -22,7 +23,9 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-
+const handleLogout = () =>{
+  dispatch(logout());
+}
   return (
     <Box>
       <IconButton
@@ -149,7 +152,7 @@ const Profile = () => {
               <Image src={"/images/backgrounds/unlimited-bg.png"} width={150} height={183} alt="unlimited" className="signup-bg" />
             </Box>
           </Box> */}
-          <Button href="/auth/auth1/login" variant="outlined" color="primary1" component={Link} fullWidth>
+          <Button variant="outlined" color="primary1" onClick={handleLogout} fullWidth>
             Logout
           </Button>
         </Box>

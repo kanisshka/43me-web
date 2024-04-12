@@ -18,6 +18,7 @@ import WeeklyStats from '@/app/(DashboardLayout)/components/dashboards/modern/We
 import TopPerformers from '@/app/(DashboardLayout)/components/dashboards/modern/TopPerformers';
 import TodaysTask from './components/dashboards/modern/TodaysTask';
 import TasksPie from './components/dashboards/modern/TasksPie';
+import AuthRoute from './layout/vertical/sidebar/AuthRoute';
 export default function Dashboard() {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function Dashboard() {
   }, []);
 
   return (
+    <AuthRoute>
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Box mt={0.5}>
         <Grid container spacing={2}>
@@ -83,5 +85,6 @@ export default function Dashboard() {
         </Grid>
       </Box>
     </PageContainer>
+    </AuthRoute>
   );
 }

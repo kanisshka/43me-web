@@ -68,10 +68,9 @@ const user = useSelector((state) => state.user);
           },
         });
   
-        setTasks(response.data.data)
-    // console.log(response.data.data,'response')
-      
-        // setCalEvents(transformedEvents)
+  
+        const filteredTasks = response.data.data.filter(task => !task.is_completed);
+        setTasks(filteredTasks)
       } catch (error) {
         // Handle errors
         console.error("Error fetching data:", error);
@@ -90,6 +89,12 @@ const user = useSelector((state) => state.user);
       setTasks(updatedTasks);
       setSelectedTasks(updatedTask);
     }
+  };
+  const handleTaskMove = (updatedTask) => {
+    const updatedTasks = tasks.filter(task => task._id !== updatedTask._id);
+    setTasks(updatedTasks);
+    setSelectedMenuItem(false);
+
   };
   const Menuitems = [
     // {
@@ -225,7 +230,7 @@ const user = useSelector((state) => state.user);
           <Typography m={1} variant="subtitle2" fontWeight={600}>OPEN({tasks?.length})</Typography>
      
           
-          <Box sx={{ px: 2 }} >
+          <Box sx={{ px: 2 }} style={{ overflowY: 'auto' , maxHeight:'100%' }}>
             <List sx={{ pt: 0 }} >
               {tasks?.map((item) => (
                 <OneDayList item={item} key={item._id} onClick={() => handleMenuItemClick(item)}/>
@@ -235,7 +240,7 @@ const user = useSelector((state) => state.user);
           </div>
           <Box sx={{ px: 2 }} className="width50">
           {selectedMenuItem ? <Box sx={{ px: 2 }} className='boxBorder'>
-           <TaskPanel item={selectedTasks} editing={false} key={selectedTasks._id} onTaskEdit={handleTaskEdit}/>
+           <TaskPanel item={selectedTasks} editing={false} key={selectedTasks._id} onTaskEdit={handleTaskEdit} onTaskMove={handleTaskMove}/>
             </Box> : <Box sx={{ px: 2 }} className='boxBorder'>
             {/* <List sx={{ pt: 0 }} >
               {CalenderItems.map((item) => (

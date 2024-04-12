@@ -19,7 +19,7 @@ const drawerWidth = 240;
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 const secdrawerWidth = 320;
-
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
 const Tasks = () => {
   const user = useSelector((state) => state.user);
   console.log(user,'userinfo')
@@ -170,7 +170,8 @@ const Tasks = () => {
   //   },
   // ];
   return (
-    <PageContainer title="Task List" description="this is Contact">
+   <AuthRoute> 
+   <PageContainer title="Task List" description="this is Contact">
       <Breadcrumb title="Task List" subtitle="List Your Tasks" />
       <AppCard>
         <div className="flexing">
@@ -260,6 +261,7 @@ const Tasks = () => {
         </Drawer> */}
       </AppCard>
     </PageContainer>
+    </AuthRoute>
   );
 };
 

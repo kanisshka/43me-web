@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Dialog from '@mui/material/Dialog';
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Fab from '@mui/material/Fab';
@@ -198,6 +199,7 @@ const BigCalendar = () => {
   };
 
   return (
+    <AuthRoute>
     <PageContainer title="Calendar" description="this is Calendar">
       <Breadcrumb title="Calendar" subtitle="View your Tasks Here" />
       <BlankCard>
@@ -332,6 +334,7 @@ const BigCalendar = () => {
         </form>
       </Dialog>
     </PageContainer>
+    </AuthRoute>
   );
 };
 

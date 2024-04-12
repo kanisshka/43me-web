@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     currentUser: null,
     isFetching: false,
     error: false,
+    isAuthenticated:false,
   },
   reducers: {
     loginStart: (state) => {
@@ -15,6 +16,7 @@ export const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.isFetching = false;
+      state.isAuthenticated = true;
       state.currentUser = action.payload;  state.error = false;
       // console.log(state.currentUser,'action')
     //   state.firebaseToken = action.payload.idToken
@@ -31,6 +33,7 @@ export const userSlice = createSlice({
     },
     signupSuccess: (state, action) => {
       state.isFetching = false;
+      state.isAuthenticated = true;
       state.currentUser = action.payload;
     },
     signupFailure: (state) => {
@@ -41,6 +44,7 @@ export const userSlice = createSlice({
       state.user = { ...action.payload };
     },    logout: (state) => {
       state.currentUser = null;
+      state.isAuthenticated = false;
     },
   }
 })

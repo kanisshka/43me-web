@@ -146,8 +146,18 @@
     color: white;
     background-color: #FFC800;
 }
+.disabled {
+    opacity: 0.5; /* Reduce opacity to visually indicate the button is disabled */
+    pointer-events: none; /* Disable pointer events to prevent interaction */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+  }
+.checkBoxArea{
+    overflow-y: auto;
+    max-height: 88%;
+    padding: 0!important;
+}
 .hoverCursor{
-    cursor: pointer;
+    cursor: pointer!important;
 }
 .SaveEditCancel{
     padding: 10px 30px;
