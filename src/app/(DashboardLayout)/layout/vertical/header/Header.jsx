@@ -24,6 +24,7 @@ const Header = () => {
   const lgDown = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   // drawer
+  const user = useSelector((state)=> state.user)
   const customizer = useSelector((state) => state.customizer);
   const dispatch = useDispatch();
 
@@ -70,7 +71,7 @@ const Header = () => {
         ) : null} */}
         {lgUp ? (
           <>
-           <Typography className="welcomeText">Hey, John</Typography>
+           <Typography className="welcomeText">Hey, {user?.currentUser?.user.first_name}</Typography>
           </>
         ) : null} 
 

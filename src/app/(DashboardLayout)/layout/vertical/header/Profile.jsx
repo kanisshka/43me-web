@@ -13,8 +13,10 @@ import { IconMail } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
 import { logout } from '@/store/user/userSlice';
-
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 const Profile = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event) => {
@@ -23,9 +25,14 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+  const user = useSelector((state)=> state.user)
+
 const handleLogout = () =>{
+  console.log('hi')
   dispatch(logout());
+    router.replace('/auth/auth1/login');
 }
+console.log(user)
   return (
     <Box>
       <IconButton
@@ -73,10 +80,10 @@ const handleLogout = () =>{
         <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 95, height: 95 }} />
           <Box>
             <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
-              John
+            {user?.currentUser?.user.first_name}
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-              Subscription
+            {user?.currentUser?.is_subscribed ? 'Subscription' : "No Subscription"} 
             </Typography>
             <Typography
               variant="subtitle2"
@@ -86,9 +93,10 @@ const handleLogout = () =>{
               gap={1}
             >
               {/* <IconMail width={15} height={15} /> */}
-              Current Plan : One Month
+              Current Plan : {user?.currentUser?.plan_title}
               <br/>
-              Days Left : 30
+              Days Left :             {user?.currentUser?.days_left}
+
             </Typography>
           </Box>
         </Stack>

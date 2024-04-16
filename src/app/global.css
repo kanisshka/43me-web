@@ -8,7 +8,11 @@
 .width100{
     width: auto!important;
 }
-
+.main_con{
+display:flex ;
+flex-direction: row;
+max-height: 85vh;
+}
 .forty{
     font-weight: 700!important;
     color: white;

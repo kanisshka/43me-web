@@ -78,7 +78,7 @@ const user = useSelector((state) => state.user);
     };
   
     fetchData();
-  }, [])
+  }, [tasks])
   const handleTaskEdit = (updatedTask) => {
     // Find the index of the updated task in tasks array
     const taskIndex = tasks.findIndex(task => task._id === updatedTask._id);
@@ -222,7 +222,7 @@ const user = useSelector((state) => state.user);
       {/* <Breadcrumb title="Task List" subtitle="List Your Tasks" /> */}
       <AppCard >
       <div className='flexText'>
-      <div className='flexi'> 
+      <div className='flexi main_con'> 
       <div className='flexText width50'>
         <Typography m={1} variant="subtitle1" fontWeight={600}>
           Tasks

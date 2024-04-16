@@ -24,13 +24,17 @@ import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcr
 import { IconCheck } from '@tabler/icons-react';
 import BlankCard from '@/app/(DashboardLayout)/components/shared/BlankCard';
 import { useRouter } from 'next/navigation';
-
+import AddTask from '../../components/dashboards/modern/AddTask';
+import { useSelector } from 'react-redux';
 moment.locale('en-GB');
 const localizer = momentLocalizer(moment);
 
 const BigCalendar = () => {
+  const user = useSelector((state) => state.user);
+
   const [calevents, setCalEvents] = React.useState();
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false)
   const [title, setTitle] = React.useState('');
   const [slot, setSlot] = React.useState();
   const [start, setStart] = React.useState();
@@ -39,7 +43,7 @@ const BigCalendar = () => {
   const [color, setColor] = React.useState('default');
   const[events,setEvents] = useState()
   const [update, setUpdate] = React.useState();
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMDc1ZjYzNTBiNjljMDVlYjYzMGMxNyIsInRva2VuX2NyZWF0aW9uX2RhdGUiOiIyMDI0LTAxLTI0VDA3OjU3OjA2KzAwOjAwIiwiaWF0IjoxNzA2MDgzMDI2fQ.eoSRnOjskhyoXEAiXRAk3ZkOZ5uNK6t8-FxmYr76nAk"
+  
   function convertDateStringToDateObject(dateString) {
     // Assuming dateString is in the format "DD/MM"
     const [day, month] = dateString.split('/').map(Number);
@@ -52,35 +56,34 @@ const BigCalendar = () => {
   
     return dateObject;
   }
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_APP}list`, {
+        headers: {
+          Authorization: `Bearer ${user?.currentUser?.token}`,
+        },
+      });
+
+      // Handle the response data here
+      console.log(response.data.data);
+      const transformedEvents = response.data.data[0].data.map((event) => ({
+        title: event.count ,
+        start: convertDateStringToDateObject(event.date),
+        end:convertDateStringToDateObject(event.date),
+        color: event.countColorBG,
+        id: event.id,
+      }));
+      // console.log(transformedEvents,'ss')
+      setCalEvents(transformedEvents)
+    } catch (error) {
+      // Handle errors
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_APP}/list`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        // Handle the response data here
-        console.log(response.data.data);
-        const transformedEvents = response.data.data[0].data.map((event) => ({
-          title: event.count ,
-          start: convertDateStringToDateObject(event.date),
-          end:convertDateStringToDateObject(event.date),
-          color: event.countColorBG,
-          id: event.id,
-        }));
-        console.log(transformedEvents,'ss')
-        setCalEvents(transformedEvents)
-      } catch (error) {
-        // Handle errors
-        console.error("Error fetching data:", error);
-      }
-    };
-  
     fetchData();
   }, [])
-
+ 
   const ColorVariation = [
     {
       id: 1,
@@ -109,7 +112,7 @@ const BigCalendar = () => {
     // },
   ];
   const addNewEventAlert = (slotInfo) => {
-    setOpen(true);
+    setOpen1(true);
     setSlot(slotInfo);
     setStart(slotInfo.start);
     setEnd(slotInfo.end);
@@ -176,7 +179,7 @@ const BigCalendar = () => {
 
   const handleClose = () => {
     // eslint-disable-line newline-before-return
-    setOpen(false);
+    setOpen1(false);
     setTitle('');
     setStart(new Date());
     setEnd(new Date());
@@ -216,7 +219,7 @@ const BigCalendar = () => {
             localizer={localizer}
             style={{ height: 'calc(100vh - 350px' }}
             onSelectEvent={(event) => editEvent(event)}
-            onSelectSlot={(slotInfo) => addNewEventAlert(slotInfo)}
+            // onSelectSlot={(event) => editEvent(event)}
             eventPropGetter={(event) => eventColors(event)}
           />
         </CardContent>
@@ -224,7 +227,7 @@ const BigCalendar = () => {
       {/* ------------------------------------------- */}
       {/* Add Calendar Event Dialog */}
       {/* ------------------------------------------- */}
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+      <Dialog open={false} onClose={handleClose} fullWidth maxWidth="xs">
         <form onSubmit={update ? updateEvent : submitHandler}>
           <DialogContent>
             {/* ------------------------------------------- */}
@@ -333,6 +336,7 @@ const BigCalendar = () => {
           {/* ------------------------------------------- */}
         </form>
       </Dialog>
+      {open1 && <AddTask onClose={handleClose} open={open1} />}
     </PageContainer>
     </AuthRoute>
   );

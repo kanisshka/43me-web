@@ -33,7 +33,7 @@ const AddTask = ({ onClose, open }) => {
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState('');
-  const [value, setValue] = useState('Never');
+  const [value, setValue] = useState('never');
   const [start, setStart] = useState(new Date());
   const [startMonth, setStartMonth] = useState(new Date());
   const handleSliderChange = (event, newValue) => {
@@ -71,7 +71,7 @@ const AddTask = ({ onClose, open }) => {
       month: monthly === true ? getDayOfMonth(startMonth) : getDayOfMonth(start),
       // month:'2024-06',
       scheduled: value,
-      repeatCount: value === 'Never' ? 0 : sliderValue,
+      repeatCount: value === 'never' ? 0 : sliderValue,
     }
     console.log(data)
     try {
@@ -79,7 +79,9 @@ const AddTask = ({ onClose, open }) => {
       console.log(response, 'response')
       if (response?.status === 200) {
         onClose();
-        router.push('/apps/tasks')
+        alert('Added Successfully')
+        // router.push('/apps/tasks')
+        location.reload()
       }
       onClose();
     } catch (err) {
@@ -192,7 +194,7 @@ const AddTask = ({ onClose, open }) => {
                 <FormControlLabel value="monthly" control={<CustomRadio />} label="Monthly" />
               </RadioGroup>
             </FormControl>
-            {value !== 'Never' && (
+            {value !== 'never' && (
               <Box>
                 <Typography my={2}>Repeat this task {sliderValue} {sliderValue > 1 ? 'times' : 'time'}</Typography>
                 <Slider
@@ -226,7 +228,7 @@ const AddTask = ({ onClose, open }) => {
       </DialogContent>
       <DialogActions>
         <Button disabled={title === ''} onClick={onClose} color="primary1">
-          Save & Add New
+          Cancel
         </Button>
         <Button
           disabled={title === ''}

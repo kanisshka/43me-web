@@ -60,7 +60,7 @@ const profile = [
     icon: "/images/svgs/icon-inbox.svg",
   },
   {
-    href: "/",
+    href: "/apps/updateprofile",
     title: "Update Profile",
     subtitle: "To-do and Daily Tasks",
     icon: "/images/svgs/icon-tasks.svg",
