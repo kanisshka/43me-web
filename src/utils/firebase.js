@@ -21,9 +21,9 @@ const messaging = getMessaging(app);
 export const generateToken = async () => {
   const permission = await Notification.requestPermission();
   console.log(permission);
-  // if(permission==="granted"){
-  const support = await isSupported();
-  console.log(support);
+  if(permission==="granted"){
+  // const support = await isSupported();
+  // console.log(support);
   getToken(messaging, { vapidKey: "BAZINr-HZoli3EJZndiUnpyWImGxtnzb5pdWXUUzU8LTvO7uKnzJoB2A_lERTRH7FQHgE9MjgEXp7zEAxhwUA3M" })
     .then((currentToken) => {
       if (currentToken) {
@@ -40,6 +40,7 @@ export const generateToken = async () => {
       console.log('An error occurred while retrieving token. ', err);
       // ...
     });
+  }
   // const token = await getToken(messaging,{
   //   vapidKey:"BAZINr-HZoli3EJZndiUnpyWImGxtnzb5pdWXUUzU8LTvO7uKnzJoB2"
   // })
