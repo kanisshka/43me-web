@@ -20,14 +20,14 @@ import "react-quill/dist/quill.snow.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from 'redux-persist/integration/react'
-import { generateToken } from "@/utils/firebase";
+// import { generateToken } from "@/utils/firebase";
 export const MyApp = ({ children }) => {
   const theme = ThemeSettings();
 
   const customizer = useSelector((state) => state.customizer);
-useEffect(() => {
- generateToken()
-}, [])
+// useEffect(() => {
+//  generateToken()
+// }, [])
 
   return (
     <>
