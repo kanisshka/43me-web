@@ -10,6 +10,7 @@ import Link from 'next/link';
 
 export const Profile = () => {
   const customizer = useSelector((state) => state.customizer);
+  const user = useSelector((state) => state.user);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
 
@@ -25,8 +26,8 @@ export const Profile = () => {
           <Avatar alt="Remy Sharp" src={"/images/profile/user-1.jpg"} sx={{height: 40, width: 40}} />
 
           <Box>
-            <Typography variant="h6">Mathew</Typography>
-            <Typography variant="caption">Designer</Typography>
+            <Typography variant="h6">{user?.currentUser?.user.first_name}</Typography>
+            <Typography variant="caption">{user?.currentUser?.user.last_name}</Typography>
           </Box>
           <Box sx={{ ml: 'auto' }}>
             <Tooltip title="Logout" placement="top">

@@ -1,10 +1,12 @@
 "use client";
-import React from "react";
+import React , {useEffect }from "react";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
 import { ThemeSettings } from "@/utils/theme/Theme";
 import { store,persistor } from "@/store/store";
+import { Notifications } from 'react-push-notification';
+
 import { useSelector } from 'react-redux';
 // import { AppState } from "@/store/store";
 import { Provider } from "react-redux";
@@ -18,10 +20,14 @@ import "react-quill/dist/quill.snow.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from 'redux-persist/integration/react'
+import { generateToken } from "@/utils/firebase";
 export const MyApp = ({ children }) => {
   const theme = ThemeSettings();
 
   const customizer = useSelector((state) => state.customizer);
+useEffect(() => {
+ generateToken()
+}, [])
 
   return (
     <>
@@ -48,6 +54,7 @@ export default function RootLayout({ children }) {
       <body>
         <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <Notifications />
           {loading ? (
             // eslint-disable-next-line react/no-children-prop
             <MyApp children={children} />

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Box from '@mui/material/Box';
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -17,10 +17,10 @@ import AuthSocialButtons from './AuthSocialButtons';
 import axios from 'axios';
 import { login } from '@/utils/services';
 const AuthLogin = ({ title, subtitle, subtext }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
-  const router = useRouter()
-  const [error, setError] = useState('')
+  const router = useRouter();
+  const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const handleSignIn = async () => {
     try {
@@ -32,16 +32,21 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         email,
         password,
       });
-      console.log(response,'res');
-      if (response) {
+      console.log(response.errors, 'res');
+      if (response.errors) {
+        setError(response.message);
+      }
+      if (response.success===true) {
         router.push('/');
       } else {
-        console.log(response)
-        setError(response.data.message)
+        if (response.errors) {
+          setError(response.message);
+        }
+        console.log(response);
+        setError(response.message);
       }
-    } catch (error) {
-      console.error('Error during login:', error);
-
+    } catch (err) {
+      console.error('Error during login:', err);
     }
   };
 
@@ -74,12 +79,24 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
       <Stack>
         <Box>
           <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
-          <CustomTextField id="email" variant="outlined" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
+          <CustomTextField
+            id="email"
+            variant="outlined"
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Box>
         <Box>
           <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
-          <CustomTextField id="password" type="password" variant="outlined" fullWidth value={password}
-            onChange={(e) => setPassword(e.target.value)} />
+          <CustomTextField
+            id="password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Box>
         <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>
           <FormGroup>
@@ -101,7 +118,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
           </Typography>
         </Stack>
       </Stack>
-      {error !== null ? <Typography className='errorStatement'>{error}</Typography> : ""}
+      {error !== null ? <Typography className="errorStatement">{error}</Typography> : ''}
       <Box>
         <Button
           color="primary1"
@@ -112,13 +129,14 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
           // href="/"
           type="submit"
           onClick={handleSignIn}
-          className='hoverPrimary'
+          className="hoverPrimary"
         >
           Sign In
         </Button>
       </Box>
       {subtitle}
-    </>)
+    </>
+  );
 };
 
 export default AuthLogin;

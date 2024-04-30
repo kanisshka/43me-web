@@ -24,7 +24,7 @@ const secdrawerWidth = 320;
 import TaskPanel from '../../../components/dashboards/modern/TaskPanel';
 const ViewAll = ({params}) => {
   // const router = useRouter()
-  console.log(params.id,'aa')
+  // console.log(params.id,'aa')
 const [tasks, setTasks] = useState()
 const [selectedTasks, setSelectedTasks] = useState()
 const user = useSelector((state) => state.user);
@@ -60,7 +60,7 @@ const user = useSelector((state) => state.user);
           date: params.id
         };
       }
-      console.log(data,"first")
+      // console.log(data,"first")
       try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}task-by-date`, data ,{
           headers: {
@@ -78,7 +78,7 @@ const user = useSelector((state) => state.user);
     };
   
     fetchData();
-  }, [tasks])
+  }, [])
   const handleTaskEdit = (updatedTask) => {
     // Find the index of the updated task in tasks array
     const taskIndex = tasks.findIndex(task => task._id === updatedTask._id);
@@ -86,8 +86,11 @@ const user = useSelector((state) => state.user);
     if (taskIndex !== -1) {
       const updatedTasks = [...tasks];
       updatedTasks[taskIndex] = updatedTask;
+      // console.log(updatedTasks,'taskupdate')
+      
       setTasks(updatedTasks);
       setSelectedTasks(updatedTask);
+      location.reload()
     }
   };
   const handleTaskMove = (updatedTask) => {

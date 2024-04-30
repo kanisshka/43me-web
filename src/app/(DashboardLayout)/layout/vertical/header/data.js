@@ -66,7 +66,7 @@ const profile = [
     icon: "/images/svgs/icon-tasks.svg",
   },
   {
-    href: "/",
+    href: "/apps/settings",
     title: "Settings",
     subtitle: "To-do and Daily Tasks",
     icon: "/images/svgs/icon-tasks.svg",
@@ -162,4 +162,25 @@ const pageLinks = [
   },
 ];
 
-export { notifications, profile, pageLinks, appsLink };
+const settings = [
+  // {
+  //   href: "#",
+  //   title: "Contact",
+  //   // subtitle: "Account Settings",
+  //   icon: "/images/svgs/icon-account.svg",
+  // },
+  {
+    href: "https://fortythree.me/site-notice-privacy/",
+    title: "Site Notice & Privacy Policy",
+    // subtitle: "Messages & Emails",
+    icon: "/images/svgs/icon-inbox.svg",
+  },
+  {
+    href: "https://fortythree.me/eula/",
+    title: "End User License Agreement",
+    // subtitle: "To-do and Daily Tasks",
+    icon: "/images/svgs/icon-tasks.svg",
+  }
+
+];
+export { notifications, profile, pageLinks, appsLink , settings};

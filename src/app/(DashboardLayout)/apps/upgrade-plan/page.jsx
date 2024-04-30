@@ -24,11 +24,15 @@ import { IconCheck } from '@tabler/icons-react';
 import BlankCard from '@/app/(DashboardLayout)/components/shared/BlankCard';
 import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
-
+import AppCard from '../../components/shared/AppCard';
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { StripePay } from '@/utils/apiCalls';
 moment.locale('en-GB');
 const localizer = momentLocalizer(moment);
 
 const Subscription = () => {
+  const user = useSelector((state) => state.user);
   const [calevents, setCalEvents] = React.useState();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');
@@ -37,49 +41,20 @@ const Subscription = () => {
   const router = useRouter()
   const [end, setEnd] = React.useState();
   const [color, setColor] = React.useState('default');
-  const[events,setEvents] = useState()
+  const [events, setEvents] = useState()
   const [update, setUpdate] = React.useState();
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMDc1ZjYzNTBiNjljMDVlYjYzMGMxNyIsInRva2VuX2NyZWF0aW9uX2RhdGUiOiIyMDI0LTAxLTI0VDA3OjU3OjA2KzAwOjAwIiwiaWF0IjoxNzA2MDgzMDI2fQ.eoSRnOjskhyoXEAiXRAk3ZkOZ5uNK6t8-FxmYr76nAk"
   function convertDateStringToDateObject(dateString) {
     // Assuming dateString is in the format "DD/MM"
     const [day, month] = dateString.split('/').map(Number);
-  
+
     // Creating a new Date object with the current year
     const currentYear = new Date().getFullYear();
-  
+
     // Note: Months in JavaScript are 0-indexed, so we subtract 1
     const dateObject = new Date(currentYear, month - 1, day, 0, 0);
-  
+
     return dateObject;
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_APP}/list`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        // Handle the response data here
-        console.log(response.data.data);
-        const transformedEvents = response.data.data[0].data.map((event) => ({
-          title: event.count ,
-          start: convertDateStringToDateObject(event.date),
-          end:convertDateStringToDateObject(event.date),
-          color: event.countColorBG,
-          id: event.id,
-        }));
-        console.log(transformedEvents,'ss')
-        setCalEvents(transformedEvents)
-      } catch (error) {
-        // Handle errors
-        console.error("Error fetching data:", error);
-      }
-    };
-  
-    fetchData();
-  }, [])
 
   const ColorVariation = [
     {
@@ -90,7 +65,8 @@ const Subscription = () => {
     {
       id: 2,
       eColor: '#eda83b',
-      value: 'secColor',}
+      value: 'secColor',
+    }
     // },
     // {
     //   id: 3,
@@ -116,10 +92,11 @@ const Subscription = () => {
   };
 
   const editEvent = (event) => {
-    console.log(event,'a')
-    if(event.title>0){
-    router.push(`/apps/view-all/${event.id}`)}
-    else{
+    console.log(event, 'a')
+    if (event.title > 0) {
+      router.push(`/apps/view-all/${event.id}`)
+    }
+    else {
       setOpen(true)
     }
     // setOpen(true);
@@ -197,37 +174,76 @@ const Subscription = () => {
   const handleEndChange = (newValue) => {
     setEnd(newValue);
   };
-
+  const handleSubscribe = async () => {
+    try {
+      const response = await StripePay();
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <PageContainer title="Upgrade your plan" description="Upgrade your plan">
       <Breadcrumb title="Upgrade Your Plan" subtitle="Select from the following" />
-      <Box className='boxSize'>
-      <Typography
-                color={".main"}
-                mt={1}
-                variant="subtitle1"
-                fontWeight={600}
-              >Full access : Get Access to your tickler file.
-              Create And Manage unlimited tasks. 
-              Access from multiple devices</Typography>
-      <BlankCard>
-       
-        <CardContent>
-          1 Month Plan
-          <Typography
-                color={".main"}
-                mt={1}
-                variant="subtitle1"
-                fontWeight={600}
-              ></Typography>
-        </CardContent>
-      </BlankCard>
-      <BlankCard>
+      <AppCard className='centering'><Box className='boxSize'>
+        <Typography className='heading' fontWeight={800}>Get 43Me now & stay organised </Typography>
+        <Typography
+          color={".main"}
+          mt={1}
+          variant="subtitle1"
+          fontWeight={600}
+          width='50%'
+        >Full access : Get Access to your tickler file.
+          Create And Manage unlimited tasks.
+          Access from multiple devices</Typography>
+        <BlankCard>
+
+          <CardContent>
+            <Box className='cardRocket'>
+              <Box><Image
+                src={"/images/rocket.png"}
+                alt="bg" width={250} height={250}
+                style={{
+                  width: "100%",
+                  // maxWidth: "500px",  maxHeight: '500px',
+                }}
+              /></Box>
+              <Box>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                  fontSize={'18px'}
+                >
+                  Full Access
+                </Typography>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontSize={'18px'}
+                  fontWeight={600}
+                >
+                  One Month Subscription
+                </Typography>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontSize={'18px'}
+                  fontWeight={600}
+                >
+                  270.00
+                </Typography></Box>
+              <Box><Button className='subscribe' onClick={handleSubscribe}>Subscribe</Button></Box>
+            </Box>
+          </CardContent>
+        </BlankCard>
+        {/* <BlankCard>
        
         <CardContent>
           1 Year Plan
         </CardContent>
-      </BlankCard></Box>
+      </BlankCard> */}
+      </Box></AppCard>
     </PageContainer>
   );
 };

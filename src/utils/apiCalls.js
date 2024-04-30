@@ -16,7 +16,32 @@ export const TaskList = async (authToken, data) => {
     console.log(error);
   }
 };
-
+export const StripePay = async () => {
+  try {
+    let data = {
+      price: "price_1OrqRfKo9v7E5i0A90apaFyT"
+    }
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://43meapi.ekahalwebsite.com/v1/stripe',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    const response = await axios.request(config);
+      // , {
+      //   headers: {
+      //     Authorization: `Bearer ${authToken}`,
+      //   },
+      // }
+    console.log(response, 'Stripe');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const EditTask = async (authToken, id, data) => {
   try {
     console.log(authToken, data, 'data')
@@ -45,9 +70,23 @@ export const MoveTask = async (authToken, id, data) => {
     console.log(error);
   }
 };
+export const Update = async (authToken,data) => {
+  try {
+    // console.log(authToken,data,'data')
+    const response = await axios.put(`${process.env.NEXT_PUBLIC_APP}user`, data, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    console.log(response, 'UpdateProfile');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const RemoveTask = async (authToken, task) => {
   try {
-     let id = task._id;
+    let id = task._id;
     if (task.baseTask_id) {
       id = task.baseTask_id;
     }
@@ -67,7 +106,7 @@ export const RemoveTask = async (authToken, task) => {
     const response = await axios.request(config);
     console.log(response.data); // Log the response data
     return response.data;
-    } catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };

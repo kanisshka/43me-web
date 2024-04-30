@@ -17,7 +17,7 @@ export const userSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isFetching = false;
       state.isAuthenticated = true;
-      state.currentUser = action.payload;  state.error = false;
+      state.currentUser = action.payload.data;  state.error = false;
       // console.log(state.currentUser,'action')
     //   state.firebaseToken = action.payload.idToken
     },
@@ -41,7 +41,7 @@ export const userSlice = createSlice({
       state.error = true;
     },
     setUser: (state, action) => {
-      state.user = { ...action.payload };
+      state.currentUser = action.payload.data ;
     },    logout: (state) => {
       state.currentUser = null;
       state.isAuthenticated = false;
