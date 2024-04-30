@@ -6,8 +6,8 @@ const AuthRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   if (!isAuthenticated) {
-    router.replace('/auth/auth1/login');
-    return null;
+    return router.replace('/auth/auth1/login');
+    
   }
 
   return children;
