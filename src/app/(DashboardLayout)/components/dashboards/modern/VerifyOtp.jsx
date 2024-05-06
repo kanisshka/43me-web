@@ -128,7 +128,7 @@ const VerifyOtp = ({ onClose, open , email }) => {
         </Button>
       </DialogActions>
         <Box className="verifyBox">
-        <Typography onClick={resendCode} className='didntCode'>Didn't get code? Send Again</Typography>
+        <Typography onClick={resendCode} className='didntCode'>Didn&apos;t get code? Send Again</Typography>
          </Box>   
     </Dialog>
   );

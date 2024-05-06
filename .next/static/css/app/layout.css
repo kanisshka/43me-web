@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[11].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src\\utils\\theme\\Typography.jsx","import":"Plus_Jakarta_Sans","arguments":[{"weight":["300","400","500","600","700"],"subsets":["latin"],"display":"swap","fallback":["Helvetica","Arial","sans-serif"]}],"variableName":"plus"} ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[11].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src/utils/theme/Typography.jsx","import":"Plus_Jakarta_Sans","arguments":[{"weight":["300","400","500","600","700"],"subsets":["latin"],"display":"swap","fallback":["Helvetica","Arial","sans-serif"]}],"variableName":"plus"} ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* cyrillic-ext */
 @font-face {
   font-family: '__Plus_Jakarta_Sans_a182b8';
@@ -184,6 +184,146 @@
 }.__className_a182b8 {font-family: '__Plus_Jakarta_Sans_a182b8', '__Plus_Jakarta_Sans_Fallback_a182b8', Helvetica, Arial, sans-serif;font-style: normal
 }
 
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[3]!./node_modules/react-push-notification/dist/notifications/Notification.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************/
+.rpn-notification-holder {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 100000;
+}
+
+.rpn-notification-holder.top-left {
+    left: 10px;
+}
+
+.rpn-notification-holder.top-middle {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rpn-notification-holder.top-right {
+    right: 30px;
+}
+
+.rpn-notification-holder.bottom-left {
+    left: 10px;
+    bottom: 10px;
+}
+
+.rpn-notification-holder.bottom-middle {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+}
+
+.rpn-notification-holder.bottom-right {
+    right: 30px;
+    bottom: 10px;
+}
+
+.rpn-notification-card {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin-top: 15px; /* Safari, Chrome and Opera > 12.1 */ /* Firefox < 16 */ /* Internet Explorer */ /* Opera < 12.1 */
+    animation: fadein 0.2s;
+}
+
+.rpn-notification-card-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 11px;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border-radius: 5px 5px 0 0;
+
+}
+
+.rpn-notification-card-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 10px 15px 10px;
+    flex-wrap: wrap;
+    background-color: rgb(59, 59, 59);
+    color: white;
+    border-radius: 0 0 5px 5px;
+    justify-content: center;
+    box-shadow: 0 5px 0px 0px rgb(0, 0, 0);
+}
+
+.rpn-notification-card-bottom span {
+    padding: 3px 0;
+}
+
+.rpn-notification-card-bottom .subtitle {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.rpn-notification-card-bottom .message {
+    font-size: 14px;
+}
+
+.rpn-notification-card-close {
+    font-size: 10px;
+    cursor: pointer;
+    height: 100%;
+}
+
+.rpn-notification-card-top.light {
+    background-color: rgb(240, 240, 240);
+    color: black;
+}
+
+.rpn-notification-card-bottom.light {
+    background-color: rgb(245, 245, 245);
+    color: black;
+    box-shadow: 0 5px 0px 0px rgb(218, 217, 217);
+}
+
+.rpn-notification-card-top.darkblue {
+    background-color: #2d3542;
+    color: white;
+}
+
+.rpn-notification-card-bottom.darkblue {
+    background-color: #394357;
+    color: white;
+    box-shadow: 0 5px 0px 0px #1f2b42;
+
+}
+
+.rpn-notification-card-top.red {
+    background-color: rgb(187, 37, 37);
+    color: white;
+}
+
+.rpn-notification-card-bottom.red {
+    background-color: #D32F2F;
+    color: white;
+    box-shadow: 0 5px 0px 0px rgb(145, 1, 1);
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+
+/* Safari, Chrome and Opera > 12.1 */
+
+/* Internet Explorer */
+
+/* Opera < 12.1 */
 /*!****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[3]!./src/app/global.css ***!
   \****************************************************************************************************************************************************************************************************************************************************************/
@@ -196,6 +336,11 @@
 }
 .width100{
     width: auto!important;
+}
+.main_con{
+display:flex ;
+flex-direction: row;
+max-height: 85vh;
 }
 .forty{
     font-weight: 700!important;
@@ -289,6 +434,29 @@
     display: flex;
     gap: 15px;
     height: 65vh;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+    width: 100%;
+    justify-content:center ;
+}
+.cardRocket{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.subscribe{
+    background: #FFC800!important;
+    color: white!important;
+    font-weight: 700!important;
+}
+.heading{
+    font-size: 22px!important;
+}
+.centering{
+    justify-content: center!important;
 }
 .addWidget{
     width: auto!important;
@@ -324,6 +492,66 @@
     margin: auto;
     color: #818181;
     border: 1px solid #ccc;
+}
+.SaveEdit{
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #FFC800;
+    color: white;
+    background-color: #FFC800;
+}
+.disabled {
+    opacity: 0.5; /* Reduce opacity to visually indicate the button is disabled */
+    pointer-events: none; /* Disable pointer events to prevent interaction */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+  }
+.checkBoxArea{
+    overflow-y: auto;
+    max-height: 88%;
+    padding: 0!important;
+}
+.hoverCursor{
+    cursor: pointer!important;
+}
+.SaveEditCancel{
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #cccccc3b;
+}
+.SaveCloseDiv{width: 100%;
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding-right: 45px;
+    position: absolute;
+    bottom: 0;
+}
+.textInputEdit{
+    width: 100%;
+    font-family: inherit;
+    height: 70%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    justify-content: flex-start;
+    display: flex;
+    margin-bottom: 15px;
+}
+.textViewEdit{
+    width: 90%;
+    height: 90%;
+    position: relative;
+    background: #fff;
+    padding: 20px 20px;
+    margin: auto;
+    color: #000;
+    border: 1px solid #000;
 }
 .flexedDiv{
     display: flex;
@@ -364,6 +592,19 @@
     display: flex;
     justify-content: flex-end;
 }
+.marginR{
+    margin-right: 20px;
+}
+.verify{
+    color: #fff!important;
+}
+.verify:hover{
+    color: #fff!important;
+    background-color: #FFC800!important;
+}
+.textW{
+    color: #fff!important;
+}
 .chipCss{
     width: 31px;
     border-radius: 50%;
@@ -372,6 +613,308 @@
     align-items: center;
     text-overflow: unset!important;
 }
+.didntCode{
+    font-size: 15px!important;
+    font-weight: 600!important;
+    margin: auto!important;
+    display: flex!important;
+}
+.verifyBox{
+    padding: 12px 40px;
+    padding-bottom: 20px;
+    /* font-weight: 700; */
+    display: flex;
+    /* font-size: 28px; */
+    cursor: pointer;
+}
+.heightMin{
+    min-height: 100px!important;
+}
+.end{
+    display: flex;
+    justify-content: flex-end;
+}
+.chipCssTag{
+    width: auto;
+    border-radius: 50%;
+    display: flex;
+    height: 20px!important;
+    justify-content: center;
+    background-color: #FFC800!important;
+    color: #fff!important;
+    align-items: center;
+    margin-right: 5px!important;
+    text-overflow: unset!important;
+}
+/* success animation */
+.success-checkmark {
+    width: 80px;
+    height: 115px;
+    margin: 0 auto;
+}
+
+.success-checkmark .check-icon {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 4px solid #FFC800;
+}
+
+.success-checkmark .check-icon::before {
+    top: 3px;
+    left: -2px;
+    width: 30px;
+    transform-origin: 100% 50%;
+    border-radius: 100px 0 0 100px;
+    content: '';
+    height: 100px;
+    position: absolute;
+    background: #FFFFFF;
+    transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon::after {
+    top: 0;
+    left: 30px;
+    width: 60px;
+    transform-origin: 0 50%;
+    border-radius: 0 100px 100px 0;
+    content: '';
+    height: 100px;
+    position: absolute;
+    background: #FFFFFF;
+    transform: rotate(-45deg);
+    animation: rotate-circle 4.25s ease-in;
+}
+
+.success-checkmark .check-icon .icon-line {
+    height: 5px;
+    background-color: #FFC800;
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+}
+
+.success-checkmark .check-icon .icon-line.line-tip {
+    top: 46px;
+    left: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+    animation: icon-line-tip 0.75s;
+}
+
+.success-checkmark .check-icon .icon-line.line-long {
+    top: 38px;
+    right: 8px;
+    width: 47px;
+    transform: rotate(-45deg);
+    animation: icon-line-long 0.75s;
+}
+.buttonIcon{
+    padding: 0!important;
+    color: #fff!important;
+    margin-top: 15px!important;
+    background: #FFC800!important;
+    min-width: 35px!important;
+}
+.success-checkmark .check-icon .icon-circle {
+    top: -4px;
+    left: -4px;
+    z-index: 10;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    box-sizing: content-box;
+    border: 4px solid #FFC800;
+}
+
+.success-checkmark .check-icon .icon-fix {
+    top: 8px;
+    width: 5px;
+    left: 26px;
+    z-index: 1;
+    height: 85px;
+    position: absolute;
+    transform: rotate(-45deg);
+    background-color: #FFFFFF;
+}
+
+@keyframes rotate-circle {
+    0% {
+        transform: rotate(-45deg);
+    }
+    5% {
+        transform: rotate(-45deg);
+    }
+    12% {
+        transform: rotate(-405deg);
+    }
+    100% {
+        transform: rotate(-405deg);
+    }
+}
+
+@keyframes icon-line-tip {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    70% {
+        width: 50px;
+        left: -8px;
+        top: 37px;
+    }
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px;
+    }
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px;
+    }
+}
+
+@keyframes icon-line-long {
+    0% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+    65% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+    84% {
+        width: 55px;
+        right: 0px;
+        top: 35px;
+    }
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+    }
+}
+.successCon{
+    height: 100%;
+    width: 100%;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.justifyMiddle{
+    display: flex;
+    justify-content: center;
+    font-size: 30px!important;
+    font-weight: 700!important;
+    padding: 20px 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.justifyMid{
+    display: flex;
+    justify-content: center;
+    font-size: 18px!important;
+    font-weight: 500!important;
+    padding: 20px 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+/* cross icon */
+.success-checkmark .check-icon1 {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: block;
+  }
+  
+  .success-checkmark .icon-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid #fc5050;
+  }
+  
+  .success-checkmark .icon-line {
+    position: absolute;
+    width: 6px;
+    height: 30px;
+    background-color: #fc5050;
+    border-radius: 2px;
+  }
+  
+  .success-checkmark .line-left {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  
+  .success-checkmark .line-right {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .updateprof{
+    display: flex!important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    height: 65vh;
+  }
+  .profField{
+    width: 225px;
+    margin-bottom: 15px!important;
+  }
+  .updateDiv{
+    display: flex;
+    justify-content: center;
+    width: 220px;
+    margin-top: 20px;
+  }
+  .updateBut{
+    width: 100%;
+    font-weight: 600!important;
+    color: white!important;
+    background: #FFC800!important;
+  }
+  .UpdateText{
+    font-weight: 700!important;
+    color: #FFC800!important;
+  }
+  .displaying{
+    display: flex;
+    width: 100%;
+    margin: auto 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  .Addtags{
+    width: 90%;
+  }
+  .addtaging{
+    width: 100%;
+  }
 /*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[3]!./node_modules/react-quill/dist/quill.snow.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************/

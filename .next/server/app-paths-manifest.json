@@ -1,6 +1,6 @@
 {
-  "/not-found": "app/not-found.js",
-  "/(DashboardLayout)/apps/view-all/[id]/page": "app/(DashboardLayout)/apps/view-all/[id]/page.js",
-  "/(DashboardLayout)/page": "app/(DashboardLayout)/page.js",
-  "/(DashboardLayout)/apps/tasks/page": "app/(DashboardLayout)/apps/tasks/page.js"
+  "/payment/cancel/page": "app/payment/cancel/page.js",
+  "/payment/success/page": "app/payment/success/page.js",
+  "/auth/auth1/login/page": "app/auth/auth1/login/page.js",
+  "/(DashboardLayout)/page": "app/(DashboardLayout)/page.js"
 }
