@@ -34,7 +34,7 @@ export const userSlice = createSlice({
     signupSuccess: (state, action) => {
       state.isFetching = false;
       state.isAuthenticated = true;
-      state.currentUser = action.payload;
+      state.currentUser = action.payload.data;
     },
     signupFailure: (state) => {
       state.isFetching = false;

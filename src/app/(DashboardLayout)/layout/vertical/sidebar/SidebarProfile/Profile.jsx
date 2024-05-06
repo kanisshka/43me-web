@@ -4,16 +4,23 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { IconPower } from '@tabler/icons-react';
 import Link from 'next/link';
-
+import { logout } from '@/store/user/userSlice';
+import { useRouter } from 'next/navigation';
 export const Profile = () => {
+  const router = useRouter()
+  const dispatch = useDispatch()
   const customizer = useSelector((state) => state.customizer);
   const user = useSelector((state) => state.user);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
-
+  const handleLogout = () =>{
+    console.log('hi')
+    dispatch(logout());
+      // router.replace('/auth/auth1/login');
+  }
   return (
     <Box
       display={'flex'}
@@ -33,8 +40,8 @@ export const Profile = () => {
             <Tooltip title="Logout" placement="top">
               <IconButton
                 color="primary1"
-                component={Link}
-                href="/auth/auth1/login"
+                onClick={handleLogout}
+                // href="/auth/auth1/login"
                 aria-label="logout"
                 size="small"
               >

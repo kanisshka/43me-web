@@ -26,7 +26,7 @@ const Cancel = () => {
 </div></Box>
 <Box>
   <Typography className='justifyMiddle'>Your Payment is Not Successful!</Typography>
-  <Typography className='justifyMid'>You&apos;ll be automatically redirected back in 5 seconds!</Typography></Box>
+  <Typography className='justifyMid'>You'll be automatically redirected back in 5 seconds!</Typography></Box>
     </Box>
   )
 }

@@ -9,7 +9,7 @@ const baselightTheme = {
     primary1: {
       main: '#FFC800',
       light: '#fff2de',
-      dark: '#4570EA',
+      dark: '#FFC800',
     },
     secondary: {
       main: '#49BEFF',

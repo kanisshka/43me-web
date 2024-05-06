@@ -13,6 +13,10 @@ import Link from 'next/link';
 import CustomCheckbox from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox';
 import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AuthSocialButtons from './AuthSocialButtons';
 import axios from 'axios';
 import { login } from '@/utils/services';
@@ -22,6 +26,11 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   const router = useRouter();
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   const handleSignIn = async () => {
     try {
       const data = {
@@ -91,11 +100,24 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
           <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
           <CustomTextField
             id="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end" style={{marginLeft:0}}>
+                  <IconButton
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                    aria-label="toggle password visibility"
+                  >
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Box>
         <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>

@@ -70,6 +70,39 @@ export const MoveTask = async (authToken, id, data) => {
     console.log(error);
   }
 };
+export const ResendCode = async (data) => {
+  try {
+    // console.log(authToken,data,'data')
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/resend_token`, data, {
+    });
+    console.log(response, 'ResendCode');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const ForgotPassWord = async (data) => {
+  try {
+    // console.log(authToken,data,'data')
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/forgot-password`, data, {
+    });
+    console.log(response, 'ForgotCode');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const ActiveAccount = async (data) => {
+  try {
+    // console.log(authToken,data,'data')
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/activation`, data, {
+    });
+    console.log(response, 'Activation');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const Update = async (authToken,data) => {
   try {
     // console.log(authToken,data,'data')

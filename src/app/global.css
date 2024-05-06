@@ -266,6 +266,16 @@ max-height: 85vh;
 .marginR{
     margin-right: 20px;
 }
+.verify{
+    color: #fff!important;
+}
+.verify:hover{
+    color: #fff!important;
+    background-color: #FFC800!important;
+}
+.textW{
+    color: #fff!important;
+}
 .chipCss{
     width: 31px;
     border-radius: 50%;
@@ -273,6 +283,20 @@ max-height: 85vh;
     justify-content: center;
     align-items: center;
     text-overflow: unset!important;
+}
+.didntCode{
+    font-size: 15px!important;
+    font-weight: 600!important;
+    margin: auto!important;
+    display: flex!important;
+}
+.verifyBox{
+    padding: 12px 40px;
+    padding-bottom: 20px;
+    /* font-weight: 700; */
+    display: flex;
+    /* font-size: 28px; */
+    cursor: pointer;
 }
 .heightMin{
     min-height: 100px!important;

@@ -27,7 +27,7 @@ const Success = () => {
 </div></Box>
 <Box>
   <Typography className='justifyMiddle'>Thank You, Your Payment is Successful!</Typography>
-  <Typography className='justifyMid'>You&apos;ll be automatically redirected back in 5 seconds!</Typography></Box>
+  <Typography className='justifyMid'>You'll be automatically redirected back in 5 seconds!</Typography></Box>
     </Box>
   )
 }
