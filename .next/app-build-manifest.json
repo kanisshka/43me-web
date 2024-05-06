@@ -1,5 +1,10 @@
 {
   "pages": {
+    "/(DashboardLayout)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(DashboardLayout)/page.js"
+    ],
     "/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -10,11 +15,6 @@
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/(DashboardLayout)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/page.js"
     ],
     "/(DashboardLayout)/layout": [
       "static/chunks/webpack.js",
@@ -32,15 +32,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/auth/auth1/login/page.js"
     ],
-    "/payment/cancel/page": [
+    "/auth/auth1/forgot-password/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/payment/cancel/page.js"
-    ],
-    "/payment/success/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/payment/success/page.js"
+      "static/chunks/app/auth/auth1/forgot-password/page.js"
     ]
   }
 }

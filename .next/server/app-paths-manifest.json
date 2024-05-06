@@ -1,6 +1,5 @@
 {
-  "/payment/cancel/page": "app/payment/cancel/page.js",
-  "/payment/success/page": "app/payment/success/page.js",
+  "/auth/auth1/forgot-password/page": "app/auth/auth1/forgot-password/page.js",
   "/auth/auth1/login/page": "app/auth/auth1/login/page.js",
   "/(DashboardLayout)/page": "app/(DashboardLayout)/page.js"
 }

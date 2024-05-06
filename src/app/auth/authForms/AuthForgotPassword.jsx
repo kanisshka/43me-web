@@ -23,7 +23,9 @@ export default function AuthForgotPassword() {
       if (res.data.success === true) {
         setOpen(true);
         setText('Email Sent Successfully!');
-        router.push('/auth/auth1/login')
+        setTimeout(() => {
+          router.push('/auth/auth1/login');
+        }, 3000);
       }
     } catch (err) {
       console.log(err);
