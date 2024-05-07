@@ -102,7 +102,7 @@ const TopCards = () => {
                   variant="subtitle1"
                   fontWeight={600}
                 >
-                  Today's Tasks
+                  Today&apos;s Tasks
                 </Typography>
                 <Typography color={'primary1' + '.main'} variant="h4" fontWeight={600}>
                   {list.data[0]?.data[0].count}
