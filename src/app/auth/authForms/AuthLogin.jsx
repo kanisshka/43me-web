@@ -56,6 +56,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
       }
     } catch (err) {
       console.error('Error during login:', err);
+      setError("Enter a Valid Email");
     }
   };
 

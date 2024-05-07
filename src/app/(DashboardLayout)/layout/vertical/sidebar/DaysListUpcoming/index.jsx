@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
+import AddIcon from '@mui/icons-material/Add';
 // mui imports
 import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@/store/store';
 
-const DaysListUpcoming = ({ item, level, pathDirect, hideMenu, onClick }) => {
+const DaysList = ({ item, level, pathDirect, hideMenu, onClick }) => {
     const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
     const customizer = useSelector((state) => state.customizer);
     const Icon = item?.icon;
@@ -86,7 +86,7 @@ console.log(`/apps/view-all/${item.id}`,'id')
                 <div className='roundCount'>
                     {t(`${item?.count}`)}
                  </div></ListItemText>
-                    <ListItemText className='arrowIcon'><ChevronRightIcon/></ListItemText>
+                    <ListItemText className='arrowIcon'><AddIcon className='addIcon'/></ListItemText>
                 {/* {!item?.chip || hideMenu ? null : (
             <Chip
               color={item?.chipColor}
@@ -101,7 +101,7 @@ console.log(`/apps/view-all/${item.id}`,'id')
     );
 }
 
-export default DaysListUpcoming;
+export default DaysList;
 // DaysList.propTypes = {
 //     item: PropTypes.object,
 //     level: PropTypes.number,

@@ -18,12 +18,23 @@ import WeeklyStats from '@/app/(DashboardLayout)/components/dashboards/modern/We
 import TopPerformers from '@/app/(DashboardLayout)/components/dashboards/modern/TopPerformers';
 import TodaysTask from './components/dashboards/modern/TodaysTask';
 import TasksPie from './components/dashboards/modern/TasksPie';
+import { useSelector } from 'react-redux';
+import { TaskList } from '@/utils/apiCalls';
 import AuthRoute from './layout/vertical/sidebar/AuthRoute';
+import moment from 'moment';
 export default function Dashboard() {
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.currentUser.token);
+  function getCurrentDate() {
+    return moment().format('YYYY-MM-DD');
+  }
+  console.log(user,'user')
   const [isLoading, setLoading] = useState(true);
+  const [list, setList] = useState(true);
   useEffect(() => {
     setLoading(false);
   }, []);
+ 
 
   return (
     <AuthRoute>
@@ -32,7 +43,7 @@ export default function Dashboard() {
         <Grid container spacing={2}>
           {/* column */}
           <Grid item xs={12} lg={12}>
-            <TopCards />
+            <TopCards/>
           </Grid>
           {/* column */}
           {/* <Grid item xs={12} lg={8}>
@@ -42,16 +53,16 @@ export default function Dashboard() {
            <TodaysTask />
           </Grid>
           {/* column */}
-          <Grid item xs={12} lg={5}>
+          {/* <Grid item xs={12} lg={5}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} lg={12}>
                 <TasksPie isLoading={isLoading} />
               </Grid>
               {/* <Grid item xs={12} sm={6} lg={12}>
                 <MonthlyEarnings isLoading={isLoading} />
-              </Grid> */}
+              </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
           {/* column */}
           {/* <Grid item xs={12} lg={4}>
             <EmployeeSalary isLoading={isLoading} />

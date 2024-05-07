@@ -65,6 +65,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
     setAnchorEl(null);
   };
   const handleEdit = async () => {
+    let id;
     const data = {
       description: desc,
       tags:tags1.length>0 ? tags1.join(',') : " ",
@@ -75,10 +76,16 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
     } else {
       data.date = item.date;
     }
+    if(item.baseTask_id){
+      id = item.baseTask_id;
+    }
+    else{
+      id = item._id
+    }
     // console.log(data,'datafinal')
     setIsLoading(true);
     try {
-      const response = await EditTask(user?.currentUser?.token, item._id, data);
+      const response = await EditTask(user?.currentUser?.token, id, data);
       if (response.status === 200) {
         setEdit(false);
         onTaskEdit({ ...item, description: desc  });

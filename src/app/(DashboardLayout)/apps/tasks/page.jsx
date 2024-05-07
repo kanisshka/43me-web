@@ -186,7 +186,7 @@ const Tasks = () => {
       <AppCard>
         <div className="flexing">
           {' '}
-          <Typography m={1} variant="subtitle1" fontWeight={600} onClick={buttonClick}>
+          <Typography m={1} variant="subtitle1" fontWeight={600} >
             Days
           </Typography>
           <Box sx={{ px: 2 }}>

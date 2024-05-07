@@ -3,7 +3,7 @@ import Link from "next/link";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import { Typography } from '@mui/material';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 const Logo = () => {
   const customizer = useSelector((state) => state.customizer);
   const LinkStyled = styled(Link)(() => ({
@@ -12,7 +12,8 @@ const Logo = () => {
     overflow: "hidden",
     display: "block",
   }));
-
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
   if (customizer.activeDir === "ltr") {
     return (
       <LinkStyled href="/" className='width100'>
@@ -25,14 +26,15 @@ const Logo = () => {
             priority
           />
         ) : (
-        <div className='logoText'>  <Image
+        <div className='logoText margin10icon'>  <Image
             src={"/images/logos/favicon-43me.ico"}
             alt="logo"
             height={45}
             width={45}
             priority
+            className='addingIcon'
           />
-          <Typography className='forty'>fortythree.me</Typography></div>
+          {!hideMenu &&<Typography className='forty'>fortythree.me</Typography>}</div>
         )}
       </LinkStyled>
     );

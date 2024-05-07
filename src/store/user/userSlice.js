@@ -41,7 +41,8 @@ export const userSlice = createSlice({
       state.error = true;
     },
     setUser: (state, action) => {
-      state.currentUser = action.payload.data ;
+      // console.log(action.payload,'data')
+      state.currentUser = action.payload ;
     },    logout: (state) => {
       state.currentUser = null;
       state.isAuthenticated = false;

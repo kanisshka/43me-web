@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { FormControlLabel, Grid, RadioGroup, FormControl, Switch } from '@mui/material';
 import AddTask from '@/app/(DashboardLayout)/components/dashboards/modern/AddTask';
-import { usePathname } from "next/navigation";
+import AddIcon from '@mui/icons-material/Add';
+import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -21,7 +22,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import CustomRadio from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomRadio';
 
 const SidebarItems = () => {
-  const  pathname  = usePathname();
+  const pathname = usePathname();
   const pathDirect = pathname;
   const pathWithoutLastPart = pathname.slice(0, pathname.lastIndexOf('/'));
   const customizer = useSelector((state) => state.customizer);
@@ -30,7 +31,7 @@ const SidebarItems = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');
-const repeat = ['never','daily','weekly','biweekly','monthly' ]
+  const repeat = ['never', 'daily', 'weekly', 'biweekly', 'monthly'];
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,19 +69,31 @@ const repeat = ['never','daily','weekly','biweekly','monthly' ]
             );
 
             // {/********If Sub No Menu**********/}
-          }else if(item.title === 'Add New Task') {
+          } else if (item.title === 'Add New Task') {
             return (
               <>
-              <Button variant="contained" disableElevation color="primary1" onClick={handleClickOpen} className='margin10'> 
-        Add Task
-      </Button>
-      {open&&<AddTask onClose={handleClose} open={open}/>}
-      </>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  color="primary1"
+                  onClick={handleClickOpen}
+                  className="margin10"
+                >
+                  <AddIcon className="addingIcon" /> {!hideMenu && 'Add Task'}
+                </Button>
+
+                {open && <AddTask onClose={handleClose} open={open} />}
+              </>
             );
-          } 
-          else {
+          } else {
             return (
-              <NavItem item={item} key={item.id} pathDirect={pathDirect} hideMenu={hideMenu} onClick={() => dispatch(toggleMobileSidebar())} />
+              <NavItem
+                item={item}
+                key={item.id}
+                pathDirect={pathDirect}
+                hideMenu={hideMenu}
+                onClick={() => dispatch(toggleMobileSidebar())}
+              />
             );
           }
         })}

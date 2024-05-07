@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 import DashboardCard from '../../shared/DashboardCard';
+import { useSelector  } from 'react-redux';
 import CustomSelect from '../../forms/theme-elements/CustomSelect';
 import {
   MenuItem,
@@ -17,17 +19,57 @@ import {
   Stack,
 } from '@mui/material';
 import TodaysTaskData from './TodaysTaskData';
-
+import { TaskList } from '@/utils/apiCalls';
+import { useEffect,useState } from 'react';
+import moment from 'moment';
 const performers = TodaysTaskData;
 
 const TodaysTask = () => {
   // for select
+  const [list, setList] = useState(null);
   const [month, setMonth] = React.useState('1');
-
+  const[tasks,setTasks] = useState()
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.currentUser.token);
+  function getCurrentDate() {
+    return moment().format('YYYY-MM-DD');
+  }
+  
   const handleChange = (event) => {
     setMonth(event.target.value);
   };
-
+  let dat = getCurrentDate();
+  useEffect(() => {
+    if (token) {
+      const fetchData = async () => {
+       
+      
+         const data = {
+            is_month: false,
+            date: getCurrentDate()
+          };
+        // console.log(data,"first")
+        
+        try {
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}task-by-date`, data ,{
+            headers: {
+              Authorization: `Bearer ${user?.currentUser?.token}`,
+            },
+          });
+          // console.log(response,'res')
+          const filteredTasks = response.data.data.filter(task => !task.is_completed);
+          setTasks(filteredTasks)
+          
+          // console.log(dat,'date')
+          
+        } catch (error) {
+          // Handle errors
+          console.error("Error fetching data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, [token]);
   return (
     <DashboardCard
       title="Today's Tasks"
@@ -46,7 +88,7 @@ const TodaysTask = () => {
       //   </CustomSelect>
       // }
     >
-                <Link href="/apps/view-all"><Typography variant="subtitle2" fontWeight={600} className='absolutePosition'>View All</Typography></Link>
+                <Link href={`/apps/view-all/${dat}`}><Typography variant="subtitle2" fontWeight={600} className='absolutePosition'>View All</Typography></Link>
     
       <TableContainer>
         <Table
@@ -72,14 +114,14 @@ const TodaysTask = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {performers.map((basic) => (
+            {tasks?.slice(0, 6).map((basic) => (
               <TableRow key={basic.id}>
                 <TableCell>
                   <Stack direction="row" spacing={2}>
-                    <Avatar src={basic.imgsrc} alt={basic.imgsrc} sx={{ width: 40, height: 40 }} />
+                    {/* <Avatar src={basic.imgsrc} alt={basic.imgsrc} sx={{ width: 40, height: 40 }} /> */}
                     <Box>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {basic.name}
+                        {basic.description}
                       </Typography>
                     </Box>
                   </Stack>

@@ -54,7 +54,7 @@ const profile = [
     icon: "/images/svgs/icon-account.svg",
   },
   {
-    href: "/",
+    href: "/apps/updatepassword",
     title: "Change Password",
     subtitle: "Messages & Emails",
     icon: "/images/svgs/icon-inbox.svg",

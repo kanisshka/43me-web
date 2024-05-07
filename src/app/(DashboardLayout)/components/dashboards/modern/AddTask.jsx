@@ -1,5 +1,8 @@
 'use client';
 import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import Chip from '@mui/material/Chip';
+
 import {
   FormControlLabel,
   RadioGroup,
@@ -35,6 +38,9 @@ const AddTask = ({ onClose, open }) => {
   const [title, setTitle] = useState('');
   const [value, setValue] = useState('never');
   const [start, setStart] = useState(new Date());
+  const[tags1,setTags1] = useState([])
+  // console.log(edit,'editing')
+  const [newTag, setNewTag] = useState('');
   const [startMonth, setStartMonth] = useState(new Date());
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue);
@@ -62,13 +68,29 @@ const AddTask = ({ onClose, open }) => {
     setStartMonth(newValue);
   };
   console.log(start, startMonth, value, 'hey')
-
+  const handleAddTag = () => {
+    if (newTag.trim() !== '') {
+      if (!tags1.includes(newTag.trim())) {
+        setTags1([...tags1, newTag.trim()]);
+      }
+      setNewTag('');
+    }
+  };
+  const handleDelete = (tagToDelete) =>{
+    const uniqueTagsString = tags1.filter(tag => tag !== tagToDelete)
+    // Update the state with the unique tags string
+    // setTags(uniqueTagsString);
+    console.log(uniqueTagsString,'tasks')
+    // const tagsArray1 = uniqueTagsString.split(',');
+    setTags1(uniqueTagsString)
+  }
   const handleAddTask = async () => {
     let data = {
       description: title,
       is_month: monthly === true ? "true" : "false",
       date: monthly === true ? "" : formatDate(start),
       month: monthly === true ? getDayOfMonth(startMonth) : getDayOfMonth(start),
+      tags:tags1.length>0 ? tags1.join(',') : " ",
       // month:'2024-06',
       scheduled: value,
       repeatCount: value === 'never' ? 0 : sliderValue,
@@ -103,7 +125,9 @@ const AddTask = ({ onClose, open }) => {
         return { min: 1, max: 3 }; // Default values for other cases
     }
   };
-
+  const handleChange = (event) => {
+    setNewTag(event.target.value);
+  };
   const { min, max } = getSliderMinMax();
   return (
     <Dialog open={open} onClose={onClose}>
@@ -128,6 +152,19 @@ const AddTask = ({ onClose, open }) => {
           size="small"
           variant="outlined"
         />
+         <div className='end'>{tags1.length > 0 && tags1?.map((item1, index) => (
+            <Chip
+              key={index} // Remember to include a unique key when mapping over elements in React
+            //   color="primary"
+              size="medium"
+              label={item1 ? `${item1}` : ''} // Check if item.tag is defined before accessing it
+              className="chipCssTag hoverCursor"
+              onClick={()=>handleDelete(item1)}
+            />
+          ))}</div>
+        <div className='displaying1'><div className='Addtags'><TextField id="tags" label="Add Tags" variant="standard" value={newTag}
+          onChange={handleChange}className='addtaging'/></div>
+          <div><Button className='buttonIcon' onClick={handleAddTag}><AddIcon /></Button></div></div>
         <Accordion>
           <AccordionSummary
             expandIcon={<IconChevronDown />}
@@ -227,7 +264,7 @@ const AddTask = ({ onClose, open }) => {
           ))} */}
       </DialogContent>
       <DialogActions>
-        <Button disabled={title === ''} onClick={onClose} color="primary1">
+        <Button onClick={onClose} color="primary1">
           Cancel
         </Button>
         <Button

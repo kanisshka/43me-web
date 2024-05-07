@@ -117,6 +117,19 @@ export const Update = async (authToken,data) => {
     console.log(error);
   }
 };
+export const UpdatePassword = async (authToken,data) => {
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/change-password`, data, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    console.log(response, 'UpdatePassword');
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const RemoveTask = async (authToken, task) => {
   try {
     let id = task._id;
