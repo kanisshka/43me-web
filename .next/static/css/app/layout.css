@@ -342,6 +342,14 @@ display:flex ;
 flex-direction: row;
 max-height: 85vh;
 }
+.displaying1{
+    display: flex;
+    width: 100%;
+    /* margin: auto 10px; */
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
 .forty{
     font-weight: 700!important;
     color: white;
@@ -356,10 +364,33 @@ max-height: 85vh;
     font-size: 30px!important;
     margin-left: 20px!important;
 }
-.margin10{
-    margin-bottom: 10px!important;
+.margin10icon{
+    /* margin-bottom: 10px!important; */
     color: white!important;
     font-weight: 600!important;
+    margin: 10px 0!important;
+    font-size: 0.875rem!important;
+    font-weight: 400!important;
+    line-height: 1.334rem!important;
+    font-family: '__Plus_Jakarta_Sans_a182b8', '__Plus_Jakarta_Sans_Fallback_a182b8', Helvetica, Arial, sans-serif;
+    display: flex!important;
+    width: 100%!important;
+    min-width: 35px!important;
+    padding: 8px 10px!important;
+}
+.margin10{
+    /* margin-bottom: 10px!important; */
+    color: white!important;
+    font-weight: 600!important;
+    margin: 10px 0!important;
+    font-size: 0.875rem!important;
+    font-weight: 400!important;
+    line-height: 1.334rem!important;
+    font-family: '__Plus_Jakarta_Sans_a182b8', '__Plus_Jakarta_Sans_Fallback_a182b8', Helvetica, Arial, sans-serif;
+    display: flex!important;
+    width: 100%!important;
+    min-width: 35px!important;
+    padding: 8px 10px!important;
 }
 .margin10:hover {
     color: #FFC800!important;
@@ -592,18 +623,47 @@ max-height: 85vh;
     display: flex;
     justify-content: flex-end;
 }
+.hideText{
+    display: none;
+}
 .marginR{
     margin-right: 20px;
 }
+.addingIcon{
+    min-width: 36px!important;
+    padding: 3px 0!important;
+    /* padding: 0!important; */
+    font-size: 1.5rem!important;
+    font-weight: 700!important;
+    line-height: 1.334rem!important;
+    font-family: '__Plus_Jakarta_Sans_a182b8', '__Plus_Jakarta_Sans_Fallback_a182b8', Helvetica, Arial, sans-serif;
+  
+}
+.addTaskButton{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
 .verify{
     color: #fff!important;
+}
+.backGroundGrey{
+    background-color: #cccccc3d;
 }
 .verify:hover{
     color: #fff!important;
     background-color: #FFC800!important;
 }
+.addIcon{
+    background-color: #FFC800;
+}
 .textW{
     color: #fff!important;
+}
+.Dflex{
+    display: flex;
+    flex-direction: column!important;
 }
 .chipCss{
     width: 31px;

@@ -24,7 +24,7 @@ import AuthRoute from './layout/vertical/sidebar/AuthRoute';
 import moment from 'moment';
 export default function Dashboard() {
   const user = useSelector((state) => state.user);
-  const token = useSelector((state) => state.user.currentUser.token);
+  // const token = useSelector((state) => state.user.currentUser.token);
   function getCurrentDate() {
     return moment().format('YYYY-MM-DD');
   }
