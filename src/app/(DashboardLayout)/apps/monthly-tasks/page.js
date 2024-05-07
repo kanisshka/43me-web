@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux';
 const secdrawerWidth = 320;
 import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
 import ViewTaskAll from '../../layout/vertical/sidebar/ViewTaskAll';
-const monthly = () => {
+const Monthly = () => {
   const user = useSelector((state) => state.user);
   console.log(user, 'userinfo');
   const [list, setList] = useState();
@@ -182,4 +182,4 @@ const monthly = () => {
   );
 };
 
-export default monthly;
+export default Monthly;
