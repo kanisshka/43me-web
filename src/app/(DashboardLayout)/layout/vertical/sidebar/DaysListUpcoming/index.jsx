@@ -16,7 +16,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AppState } from '@/store/store';
-
+import moment from 'moment';
 const DaysList = ({ item, level, pathDirect, hideMenu, onClick }) => {
     const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
     const customizer = useSelector((state) => state.customizer);
@@ -52,7 +52,12 @@ const DaysList = ({ item, level, pathDirect, hideMenu, onClick }) => {
             //   },
         },
     }));
-
+    let formattedDate = item?.date;
+    let format = localStorage.getItem('format');
+  //   console.log(format,'format')
+    if (format !== 'DD/MM') {
+      formattedDate = moment(item?.date, 'DD/MM').format(format);
+    }
     const listItemProps = {
         component: item?.external ? 'a' : Link,
         to: item?.href,
@@ -74,7 +79,7 @@ console.log(`/apps/view-all/${item.id}`,'id')
                     {t(`${item?.dayName}`)}
                 </ListItemText>
                 <ListItemText  className='maxWidth1' >
-                    {t(`${item?.date}`)}
+                {formattedDate}
                 </ListItemText>
                 {/* <Chip
                 color='primary'

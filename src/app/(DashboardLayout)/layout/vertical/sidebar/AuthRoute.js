@@ -30,12 +30,16 @@ import { useSelector } from 'react-redux';
 const AuthRoute = ({ children }) => {
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated); // Use useSelector directly
+  const isDaysLeft = useSelector((state) => state.user.daysLeft); // Use useSelector directly
 
   if (!isAuthenticated) {
     router.replace('/auth/auth1/login');
     return null; // Prevent rendering children if not authenticated
   }
-
+  if (isAuthenticated && isDaysLeft===0) {
+    router.replace('/auth/auth1/login');
+    return null; // Prevent rendering children if not authenticated
+  }
   return children;
 };
 

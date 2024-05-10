@@ -20,6 +20,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AuthSocialButtons from './AuthSocialButtons';
 import axios from 'axios';
 import { login } from '@/utils/services';
+import NoDaysLeft from '@/app/(DashboardLayout)/components/dashboards/modern/NoDaysLeft';
 const AuthLogin = ({ title, subtitle, subtext }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -27,7 +28,11 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  localStorage.setItem('format', 'DD/MM');
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -41,22 +46,26 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         email,
         password,
       });
-      console.log(response.errors, 'res');
-      if (response.errors) {
-        setError(response.message);
-      }
-      if (response.success===true) {
-        router.push('/');
-      } else {
+      // console.log(response, 'res');
+      if (response.data.days_left > 0) {
         if (response.errors) {
           setError(response.message);
         }
-        console.log(response);
-        setError(response.message);
+        if (response.success === true) {
+          router.push('/');
+        } else {
+          if (response.errors) {
+            setError(response.message);
+          }
+          console.log(response);
+          setError(response.message);
+        }
+      } else {
+        setOpen(true);
       }
     } catch (err) {
       console.error('Error during login:', err);
-      setError("Enter a Valid Email");
+      setError('Enter a Valid Email');
     }
   };
 
@@ -108,7 +117,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end" style={{marginLeft:0}}>
+                <InputAdornment position="end" style={{ marginLeft: 0 }}>
                   <IconButton
                     onClick={handleTogglePasswordVisibility}
                     edge="end"
@@ -158,6 +167,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         </Button>
       </Box>
       {subtitle}
+      <NoDaysLeft open={open} onClose={handleClose} />
     </>
   );
 };

@@ -82,11 +82,11 @@ const Header = () => {
           {/* ------------------------------------------- */}
           {/* End Ecommerce Dropdown */}
           {/* ------------------------------------------- */}
-          <Notifications />
+          {/* <Notifications /> */}
           {/* ------------------------------------------- */}
           {/* Toggle Right Sidebar for mobile */}
           {/* ------------------------------------------- */}
-          {lgDown ? <MobileRightSidebar /> : null}
+          {/* {lgDown ? <MobileRightSidebar /> : null} */}
           <Profile />
         </Stack>
       </ToolbarStyled>

@@ -53,7 +53,7 @@ const TopCards = () => {
   const token = useSelector((state) => state.user.currentUser.token);
 
   const calculateTotalCount = (data) => {
-    console.log(data,'data')
+    // console.log(data,'data')
     let totalCount = 0;
     for (let i = 1; i < data.length - 1; i++) {
       totalCount += data[i].count;
@@ -102,7 +102,7 @@ const TopCards = () => {
                   variant="subtitle1"
                   fontWeight={600}
                 >
-                  Today&apos;s Tasks
+                  Today's Tasks
                 </Typography>
                 <Typography color={'primary1' + '.main'} variant="h4" fontWeight={600}>
                   {list.data[0]?.data[0].count}

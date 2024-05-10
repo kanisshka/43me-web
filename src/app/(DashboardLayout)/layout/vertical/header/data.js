@@ -51,25 +51,25 @@ const profile = [
     href: "/apps/upgrade-plan",
     title: "Upgrade Plan",
     subtitle: "Account Settings",
-    icon: "/images/svgs/icon-account.svg",
+    icon: "/images/svgs/checkout.svg",
   },
   {
     href: "/apps/updatepassword",
     title: "Change Password",
     subtitle: "Messages & Emails",
-    icon: "/images/svgs/icon-inbox.svg",
+    icon: "/images/svgs/password.svg",
   },
   {
     href: "/apps/updateprofile",
     title: "Update Profile",
     subtitle: "To-do and Daily Tasks",
-    icon: "/images/svgs/icon-tasks.svg",
+    icon: "/images/svgs/profile.svg",
   },
   {
     href: "/apps/settings",
     title: "Settings",
     subtitle: "To-do and Daily Tasks",
-    icon: "/images/svgs/icon-tasks.svg",
+    icon: "/images/svgs/gear.svg",
   }
 
 ];

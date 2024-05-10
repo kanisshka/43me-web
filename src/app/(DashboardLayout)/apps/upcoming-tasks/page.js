@@ -105,10 +105,10 @@ const Upcoming = () => {
               <List sx={{ pt: 0 }}>
                 {list?.data[0]?.data.slice(1, 31).map((item) => (
                   <>
-                  <Link href={`/apps/view-all/${item.id}`}>
+                  {item.count > 0 && <><Link href={`/apps/view-all/${item.id}`}>
                     <DaysListUpcoming item={item} key={item.id} />
                     <ViewTaskAll item={item} key={item.id} /></Link>
-                    <Divider/>
+                    <Divider/></> }
                   </>
                 ))}
               </List>

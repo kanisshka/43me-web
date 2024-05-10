@@ -62,7 +62,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
   const isDisabled = !(
     (firstName && lastName && email && password && mobile) /* && other fields */
   );
-  console.log(isDisabled, 'j');
+  // console.log(isDisabled, 'j');
   return (
     <>
       {title ? (

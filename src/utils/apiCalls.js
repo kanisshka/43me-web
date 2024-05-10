@@ -48,6 +48,7 @@ export const EditTask = async (authToken, id, data) => {
     const response = await axios.put(`${process.env.NEXT_PUBLIC_APP}task/${id}`, data, {
       headers: {
         Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     });
     console.log(response, 'editTask');

@@ -8,6 +8,7 @@ export const userSlice = createSlice({
     isFetching: false,
     error: false,
     isAuthenticated:false,
+    daysLeft:null
   },
   reducers: {
     loginStart: (state) => {
@@ -18,6 +19,7 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isAuthenticated = true;
       state.currentUser = action.payload.data;  state.error = false;
+      state.daysLeft=action.payload.data.days_left
       // console.log(state.currentUser,'action')
     //   state.firebaseToken = action.payload.idToken
     },
@@ -34,6 +36,7 @@ export const userSlice = createSlice({
     signupSuccess: (state, action) => {
       state.isFetching = false;
       state.isAuthenticated = true;
+      state.daysLeft=action.payload.data.days_left
       state.currentUser = action.payload.data;
     },
     signupFailure: (state) => {

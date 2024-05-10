@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -23,9 +23,12 @@ export default function NavItem({ item, level, pathDirect, hideMenu, onClick }) 
   const Icon = item?.icon;
   const theme = useTheme();
   const { t } = useTranslation();
+  const [clicked, setClicked] = useState(false);
   const itemIcon =
     level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
-
+    const handleClick = () => {
+      setClicked(!clicked);
+    };
   const ListItemStyled = styled(ListItemButton)(() => ({
     whiteSpace: 'nowrap',
     marginBottom: '2px',
@@ -65,22 +68,24 @@ export default function NavItem({ item, level, pathDirect, hideMenu, onClick }) 
           // {...listItemProps}
           disabled={item?.disabled}
           selected={pathDirect === item?.href}
-          onClick={lgDown ? onClick : undefined}
+          onClick={lgDown ? onClick : handleClick}
+          style={{display:'flex',justifyContent:'center'}}
         >
           <ListItemIcon
             sx={{
               minWidth: '36px',
-              p: '3px 0',
+              p: '3px auto',
               color:
                 level > 1 && pathDirect === item?.href
                   ? `${theme.palette.primary.main}!important`
                   : 'inherit',
             }}
           >
-            {itemIcon}
+            {(pathDirect === item?.href) ? item.icon : item.blackIcon}
           </ListItemIcon>
-          <ListItemText>
-            {hideMenu ? '' : <>{t(`${item?.title}`)}</>}
+          <ListItemText > 
+            
+            {hideMenu ? '' : <>&nbsp;  {t(`${item?.title}`)}</>}
             <br />
             {item?.subtitle ? (
               <Typography variant="caption">{hideMenu ? '' : item?.subtitle}</Typography>

@@ -26,7 +26,7 @@ const messaging = getMessaging(app);
 
  try {
   const permission = await Notification.requestPermission();
-  console.log(permission);
+  // console.log(permission);
   if(permission==="granted"){
   
   getToken(messaging, { vapidKey: "BAZINr-HZoli3EJZndiUnpyWImGxtnzb5pdWXUUzU8LTvO7uKnzJoB2A_lERTRH7FQHgE9MjgEXp7zEAxhwUA3M" })
@@ -34,7 +34,7 @@ const messaging = getMessaging(app);
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
         // ...
-        console.log(currentToken);
+        // console.log(currentToken);
       } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
