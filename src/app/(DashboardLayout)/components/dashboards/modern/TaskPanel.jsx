@@ -404,7 +404,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
                         }}
                       />{' '}
                     </span>
-                    <img src={item1.file_url} className="imgTask" onClick={() => handleImageClick(item1.file_url)}></img>
+                    <img src={item1.file_url} key={index} className="imgTask" onClick={() => handleImageClick(item1.file_url)}></img>
                   </div>
                 ))}
 
@@ -528,7 +528,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
             {files.length > 0 &&
               files?.map((item1, index) => (
                 <div className="imgDiv">
-                  <img src={item1.file_url} className="imgTask"></img>
+                  <img src={item1.file_url} key={index} className="imgTask"></img>
                 </div>
               ))}
           </div>
