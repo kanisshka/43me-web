@@ -36,10 +36,10 @@ const AuthRoute = ({ children }) => {
     router.replace('/auth/auth1/login');
     return null; // Prevent rendering children if not authenticated
   }
-  if (isAuthenticated && isDaysLeft===0) {
-    router.replace('/auth/auth1/login');
-    return null; // Prevent rendering children if not authenticated
-  }
+  // if (isAuthenticated && isDaysLeft===0) {
+  //   router.replace('/auth/auth1/login');
+  //   return null; // Prevent rendering children if not authenticated
+  // }
   return children;
 };
 

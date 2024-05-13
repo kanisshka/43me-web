@@ -28,11 +28,11 @@ const Profile = () => {
   const user = useSelector((state)=> state.user)
 
 const handleLogout = () =>{
-  console.log('hi')
+  // console.log('hi')
   dispatch(logout());
     router.replace('/auth/auth1/login');
 }
-console.log(user)
+// console.log(user)
   return (
     <Box>
       <IconButton

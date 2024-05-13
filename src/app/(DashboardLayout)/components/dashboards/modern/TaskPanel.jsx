@@ -92,7 +92,11 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
         dataImg.append('deleted_images[]', item._id);
       });
     }
-    dataImg.append('date', item.date);
+    if(item.is_month===true){
+      dataImg.append("date",item.month);
+    }
+    if(item.is_month===false){
+    dataImg.append('date', item.date);}
     dataImg.append('description', desc);
     const tag = tags1.join(',');
     if (tag) {

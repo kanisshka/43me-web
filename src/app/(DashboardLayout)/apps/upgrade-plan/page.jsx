@@ -177,6 +177,10 @@ const Subscription = () => {
   const handleSubscribe = async () => {
     try {
       const response = await StripePay();
+      if (response.data && response.data.data.CheckoutUrl) {
+        // Open the CheckoutUrl in a new tab
+        window.open(response.data.data.CheckoutUrl, '_blank');
+    }
       console.log(response)
     } catch (err) {
       console.log(err)

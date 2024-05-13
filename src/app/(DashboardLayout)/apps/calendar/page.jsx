@@ -221,6 +221,7 @@ const BigCalendar = () => {
             onSelectEvent={(event) => editEvent(event)}
             // onSelectSlot={(event) => editEvent(event)}
             eventPropGetter={(event) => eventColors(event)}
+            views={['month', 'agenda']}
           />
         </CardContent>
       </BlankCard>

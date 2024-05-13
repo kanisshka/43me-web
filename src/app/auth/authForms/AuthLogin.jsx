@@ -36,6 +36,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  const currentDate = new Date();
   const handleSignIn = async () => {
     try {
       const data = {
@@ -46,22 +47,24 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         email,
         password,
       });
-      // console.log(response, 'res');
-      if (response.data.days_left > 0) {
+      const expiryDate = new Date(response.data.expiry_date);
+      // console.log(currentDate,expiryDate, 'res');/
+
+      if (response.errors) {
+        setError(response.message);
+      }
+      if (response.success === true) {
+        if (response.data.days_left > 0 && response.data.is_subscribed===true) {
+          router.push('/');
+        } else {
+          setOpen(true);
+        }
+      } else {
         if (response.errors) {
           setError(response.message);
         }
-        if (response.success === true) {
-          router.push('/');
-        } else {
-          if (response.errors) {
-            setError(response.message);
-          }
-          console.log(response);
-          setError(response.message);
-        }
-      } else {
-        setOpen(true);
+        console.log(response);
+        setError(response.message);
       }
     } catch (err) {
       console.error('Error during login:', err);

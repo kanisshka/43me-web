@@ -46,7 +46,11 @@ const AddTask = ({ onClose, open }) => {
   const [tags1, setTags1] = useState([]);
   // console.log(edit,'editing')
   const [newTag, setNewTag] = useState('');
-  const [startMonth, setStartMonth] = useState(new Date());
+  const [startMonth, setStartMonth] = useState(()=>{
+    const today = new Date();
+    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1);
+    return nextMonth;
+  });
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue);
   };
@@ -72,7 +76,6 @@ const AddTask = ({ onClose, open }) => {
   const handleStartChangeMonth = (newValue) => {
     setStartMonth(newValue);
   };
-  console.log(start, startMonth, value, 'hey');
   const handleAddTag = () => {
     if (newTag.trim() !== '') {
       if (!tags1.includes(newTag.trim())) {
@@ -98,7 +101,6 @@ const AddTask = ({ onClose, open }) => {
       DataImg.append('is_month', 'true');
       
       const month = getDayOfMonth(startMonth);
-      DataImg.append('date', '');
       DataImg.append('month', month);
     }
     if (monthly === false) {
@@ -111,8 +113,11 @@ const AddTask = ({ onClose, open }) => {
     DataImg.append('description', title);
     const tag = tags1.join(',');
     if (tag) {
-      DataImg.append('scheduled', value);
+      DataImg.append('tags', tag);
     }
+    // console.log(tag,'tag')
+    //  for (var [key, value] of DataImg.entries()) {
+    //     console.log(key, value);}
     // let data = {
     //   description: title,
     //   is_month: monthly === true ? "true" : "false",
@@ -124,14 +129,22 @@ const AddTask = ({ onClose, open }) => {
     //   repeatCount: value === 'never' ? 0 : sliderValue,
     // }
     if (value === 'never') {
+      console.log(value,'value')
       DataImg.append('repeatCount', 0);
+      DataImg.append('scheduled', value);
+
     }
     if (value !== 'never') {
+      console.log(value,'value1')
+
       DataImg.append('repeatCount', sliderValue);
+      DataImg.append('scheduled', value);
+
     }
+    
     try {
       const response = await AddNewTask(user?.currentUser?.token, DataImg);
-      console.log(response, 'response');
+      // console.log(response, 'response');
       if (response?.status === 200) {
         onClose();
         alert('Added Successfully');

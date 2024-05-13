@@ -17,30 +17,58 @@ export const TaskList = async (authToken, data) => {
   }
 };
 export const StripePay = async () => {
+  // try {
+  //   let data = {
+  //     price: "price_1OrqRfKo9v7E5i0A90apaFyT"
+  //   }
+  //   let config = {
+  //     method: 'post',
+  //     maxBodyLength: Infinity,
+  //     url: 'http://127.0.0.1:3005/v1/stripe',
+  //     headers: { 
+  //       'Content-Type': 'application/json'
+  //     },
+  //     data : data
+  //   };
+  //   const response = await axios.request(config);
+  //     // , {
+  //     //   headers: {
+  //     //     Authorization: `Bearer ${authToken}`,
+  //     //   },
+  //     // }
+  //   console.log(response, 'Stripe');
+  //   return response;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  let data = JSON.stringify({
+    "price": "price_1OrqRfKo9v7E5i0A90apaFyT"
+  });
+  
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://api.fortythree.me/v1/stripe',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
   try {
-    let data = {
-      price: "price_1OrqRfKo9v7E5i0A90apaFyT"
-    }
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://43meapi.ekahalwebsite.com/v1/stripe',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      data : data
-    };
     const response = await axios.request(config);
-      // , {
-      //   headers: {
-      //     Authorization: `Bearer ${authToken}`,
-      //   },
-      // }
-    console.log(response, 'Stripe');
+    // console.log(response, 'response');
     return response;
   } catch (error) {
     console.log(error);
   }
+  // axios.request(config)
+  // .then((response) => {
+  //   console.log(response,'response')
+  //   return response
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // });
 };
 export const EditTask = async (authToken, id, data) => {
   try {
