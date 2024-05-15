@@ -76,6 +76,13 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const uniqueTags = item?.tags.reduce((acc, tagItem) => {
+    if (!acc.some(existingItem => existingItem.tag === tagItem.tag)) {
+      acc.push(tagItem);
+    }
+    return acc;
+  }, []);
+  // console.log(uniqueTags,'unique')
   const handleEdit = async () => {
     let idParams;
     let data1;
@@ -156,9 +163,13 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
   };
   useEffect(() => {
     if (item?.tags.length > 0) {
+      const uniqueTagsArray = [...new Set(item.tags.map((obj) => obj.tag))];
+      console.log(uniqueTagsArray,'RRA')
+      const uniqueTagsString = uniqueTagsArray.join(',');
+      console.log(uniqueTagsString)
       let edit = item?.tags.map((obj) => obj.tag).join(',');
-      setTags(edit);
-      const tagsArray = edit.split(',');
+      setTags(uniqueTagsString);
+      const tagsArray = [...new Set(edit.split(','))];
       setTags1(tagsArray);
     }
     if (item?.files.length > 0) {
@@ -180,7 +191,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
   };
   const handleDescriptionChange = (event) => {
     setDesc(event.target.value); // Update the edited description
-    console.log(desc, 'description');
+    // console.log(desc, 'description');
   };
   const handleEditTrue = () => {
     setEdit(true);
@@ -235,7 +246,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
 
     try {
       const response = await MoveTask(user?.currentUser?.token, item._id, Data);
-      console.log(response, 'response');
+      // console.log(response, 'response');
       if (response.status === 200) {
         setMove(false);
         alert('Moved Successfully!');
@@ -257,7 +268,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
 
     try {
       const response = await MarkAsDone(user?.currentUser?.token, item._id, Data);
-      console.log(response, 'response');
+      // console.log(response, 'response');
       if (response.status === 200) {
         // setMove(false);
         alert('Marked as Done Successfully!');
@@ -271,7 +282,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
     const uniqueTagsString = tags1.filter((tag) => tag !== tagToDelete);
     // Update the state with the unique tags string
     // setTags(uniqueTagsString);
-    console.log(uniqueTagsString, 'tasks');
+    // console.log(uniqueTagsString, 'tasks');
     // const tagsArray1 = uniqueTagsString.split(',');
     setTags1(uniqueTagsString);
   };
@@ -366,7 +377,7 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
           />
           <div className="end">
             {tags1.length > 0 &&
-              tags1?.map((item1, index) => (
+              tags1?.slice(0,10).map((item1, index) => (
                 <Chip
                   key={index} // Remember to include a unique key when mapping over elements in React
                   //   color="primary"
@@ -516,9 +527,9 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
       {!edit && !move && (
         <Box className="textView">
           <Typography className="heightMin">{item?.description}</Typography>
-          <div className="end">
+          <div className="end gapping">
             {item?.tags &&
-              item?.tags.map((item1, index) => (
+              uniqueTags.map((item1, index) => (
                 <Chip
                   key={index} // Remember to include a unique key when mapping over elements in React
                   //   color="primary"
@@ -526,7 +537,8 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
                   label={item1?.tag ? t(`${item1.tag}`) : ''} // Check if item.tag is defined before accessing it
                   className="chipCssTag"
                 />
-              ))}
+              ))
+              }
           </div>
           <div className="imgDivCont">
             {files.length > 0 &&

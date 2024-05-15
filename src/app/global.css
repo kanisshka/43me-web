@@ -8,6 +8,10 @@
 .width100{
     width: auto!important;
 }
+.gapping{
+    flex-wrap: wrap;
+    gap: 7px;
+}
 .main_con{
 display:flex ;
 flex-direction: row;

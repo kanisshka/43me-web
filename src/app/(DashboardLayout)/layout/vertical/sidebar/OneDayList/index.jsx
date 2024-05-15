@@ -62,8 +62,12 @@ const [tag1, setTags1] = useState([])
     if(item?.tags.length>0){
       let edit = item?.tags.map(obj => obj.tag).join(",")
       // setTags(edit)
-      const tagsArray = edit.split(',');
-      setTags1(tagsArray)
+      const uniqueTagsArray = [...new Set(item.tags.map((obj) => obj.tag))];
+      console.log(uniqueTagsArray,'RRA')
+      const uniqueTagsString = uniqueTagsArray.join(',');
+      console.log(uniqueTagsString)
+      const tagsArray = [...new Set(edit.split(','))];
+      setTags1(tagsArray);
     }
   }, [item])
   return (

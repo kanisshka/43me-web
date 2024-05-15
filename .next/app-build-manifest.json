@@ -1,59 +1,37 @@
 {
   "pages": {
-    "/(DashboardLayout)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(DashboardLayout)/layout.css",
-      "static/chunks/app/(DashboardLayout)/layout.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/(DashboardLayout)/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/loading.js"
-    ],
     "/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
+    ],
+    "/(DashboardLayout)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(DashboardLayout)/layout.css",
+      "static/chunks/app/(DashboardLayout)/layout.js"
+    ],
+    "/(DashboardLayout)/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(DashboardLayout)/loading.js"
     ],
     "/(DashboardLayout)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(DashboardLayout)/page.js"
     ],
-    "/auth/auth1/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/auth/auth1/login/page.js"
-    ],
-    "/(DashboardLayout)/apps/tasks/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(DashboardLayout)/apps/tasks/page.css",
-      "static/chunks/app/(DashboardLayout)/apps/tasks/page.js"
-    ],
-    "/(DashboardLayout)/apps/calendar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(DashboardLayout)/apps/calendar/page.css",
-      "static/chunks/app/(DashboardLayout)/apps/calendar/page.js"
-    ],
     "/(DashboardLayout)/apps/view-all/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/(DashboardLayout)/apps/view-all/[id]/page.css",
       "static/chunks/app/(DashboardLayout)/apps/view-all/[id]/page.js"
-    ],
-    "/not-found": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/not-found.js"
     ]
   }
 }

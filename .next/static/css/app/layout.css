@@ -337,6 +337,10 @@
 .width100{
     width: auto!important;
 }
+.gapping{
+    flex-wrap: wrap;
+    gap: 7px;
+}
 .main_con{
 display:flex ;
 flex-direction: row;
@@ -349,7 +353,7 @@ max-height: 85vh;
 }
 .payment{
     font-weight: 700!important;
-    font-size: 18px!important;
+    font-size: 18fpx!important;
     border: 1px solid!important;
     color: white!important;
     background: #FFC800!important;
@@ -883,8 +887,8 @@ max-height: 85vh;
     min-width: 35px!important;
 }
 .success-checkmark .check-icon .icon-circle {
-    top: -4px;
-    left: -4px;
+    top: 40px;
+    left: 40px;
     z-index: 10;
     width: 80px;
     height: 80px;
