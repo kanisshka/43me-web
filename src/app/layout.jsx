@@ -107,10 +107,10 @@ const dispatch = useDispatch()
     const ftc = async () => {
       const res = await GetUser(user?.currentUser?.token);
       // console.log(res, 'userinfo');
-      // console.log(res?.data[0].subscriptions[0]?.expiry_date)
-      const givenDate = new Date(res?.data[0].subscriptions[0]?.expiry_date);
+      // console.log(res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1])
+      const givenDate = new Date(res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.expiry_date);
       const currentDate = new Date();
-      if (givenDate < currentDate && res?.data[0].subscriptions[0]?.status==="inactive") {
+      if (givenDate < currentDate && res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.status==="inactive") {
         dispatch(logout());
         router.replace('/auth/auth1/login')
       } 

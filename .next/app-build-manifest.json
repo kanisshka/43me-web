@@ -5,6 +5,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
+    "/auth/auth1/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/auth1/login/page.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
     "/(DashboardLayout)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -21,16 +32,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(DashboardLayout)/page.js"
     ],
-    "/layout": [
+    "/(DashboardLayout)/apps/settings/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/auth/auth1/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/auth/auth1/login/page.js"
+      "static/chunks/app/(DashboardLayout)/apps/settings/page.js"
     ]
   }
 }

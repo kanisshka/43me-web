@@ -82,7 +82,7 @@ export const SendNotify = async (fcm, title, body) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:3005/v1/notification-send',
+    url: 'https://43meapi.ekahalwebsite.com/v1/notification-send',
     data: data,
   };
   axios
@@ -103,7 +103,7 @@ export const StripeStatus = async (id) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:3005/v1/webhook',
+    url: 'https://43meapi.ekahalwebsite.com/v1/webhook',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -129,7 +129,7 @@ export const UpdateSubscription = async (authToken, data) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:3005/v1/web-subscription',
+    url: 'https://43meapi.ekahalwebsite.com/v1/web-subscription',
     headers: {
       Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json',
