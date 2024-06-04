@@ -1,4 +1,4 @@
 {
-  "/(DashboardLayout)/apps/view-all/[id]/page": "app/(DashboardLayout)/apps/view-all/[id]/page.js",
+  "/auth/auth1/login/page": "app/auth/auth1/login/page.js",
   "/(DashboardLayout)/page": "app/(DashboardLayout)/page.js"
 }
