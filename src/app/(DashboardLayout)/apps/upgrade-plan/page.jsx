@@ -302,7 +302,7 @@ const Subscription = () => {
                       fontSize={'18px'}
                       fontWeight={600}
                     >
-                      One Month Subscription
+                      One Year Subscription
                     </Typography>
                     <Typography
                       color={'.main'}
@@ -310,7 +310,7 @@ const Subscription = () => {
                       fontSize={'18px'}
                       fontWeight={600}
                     >
-                      270.00
+                      $24.99
                     </Typography>
                   </Box>
                   <Box>
