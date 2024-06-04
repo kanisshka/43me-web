@@ -94,6 +94,7 @@ const Monthly = () => {
       native: false, // when using native, your OS will handle theming.
     });
   };
+  const hasItemsWithCount = list?.data[1]?.data.slice(1, 31).some((item) => item.count > 0);
   return (
     <AuthRoute>
       <PageContainer title="Task List" description="this is Contact">
@@ -103,14 +104,14 @@ const Monthly = () => {
             {' '}
             <Box sx={{ px: 2 }}>
               <List sx={{ pt: 0 }}>
-                {list?.data[1]?.data.map((item) => (
+                {hasItemsWithCount ? (list?.data[1]?.data.map((item) => (
                   <>
                   {item.count>0 && <><Link href={`/apps/view-all/${item.id}`}>
                     <DaysListUpcoming item={item} key={item.id} />
                     <ViewTaskAll item={item} key={item.id} /></Link>
                     <Divider/></> }
                   </>
-                ))}
+                ))):"No Monthly Tasks Found"}
               </List>
             </Box>
           </div>

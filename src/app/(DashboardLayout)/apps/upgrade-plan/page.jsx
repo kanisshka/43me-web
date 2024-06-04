@@ -18,6 +18,7 @@ import Events from '@/app/(DashboardLayout)/EventData';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import { IconCheck } from '@tabler/icons-react';
@@ -26,22 +27,27 @@ import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
 import AppCard from '../../components/shared/AppCard';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { StripePay } from '@/utils/apiCalls';
+import { useSelector, useDispatch } from 'react-redux';
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
+import { StripePay, StripeStatus,UpdateSubscription } from '@/utils/apiCalls';
 moment.locale('en-GB');
+import { setUser } from '@/store/user/userSlice';
 const localizer = momentLocalizer(moment);
 
 const Subscription = () => {
+  const dispatch = useDispatch();
+  let interval;
   const user = useSelector((state) => state.user);
   const [calevents, setCalEvents] = React.useState();
+  const [isloading, setisloading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [slot, setSlot] = React.useState();
   const [start, setStart] = React.useState();
-  const router = useRouter()
+  const router = useRouter();
   const [end, setEnd] = React.useState();
   const [color, setColor] = React.useState('default');
-  const [events, setEvents] = useState()
+  const [events, setEvents] = useState();
   const [update, setUpdate] = React.useState();
   function convertDateStringToDateObject(dateString) {
     // Assuming dateString is in the format "DD/MM"
@@ -66,7 +72,7 @@ const Subscription = () => {
       id: 2,
       eColor: '#eda83b',
       value: 'secColor',
-    }
+    },
     // },
     // {
     //   id: 3,
@@ -92,12 +98,11 @@ const Subscription = () => {
   };
 
   const editEvent = (event) => {
-    console.log(event, 'a')
+    console.log(event, 'a');
     if (event.title > 0) {
-      router.push(`/apps/view-all/${event.id}`)
-    }
-    else {
-      setOpen(true)
+      router.push(`/apps/view-all/${event.id}`);
+    } else {
+      setOpen(true);
     }
     // setOpen(true);
     // const newEditEvent = calevents.find((elem) => elem.title === event.title);
@@ -174,81 +179,177 @@ const Subscription = () => {
   const handleEndChange = (newValue) => {
     setEnd(newValue);
   };
+  const UpdateSub = async (status) => {
+    const dat = moment(new Date());
+    const next_expiry_date = dat.add(1, 'months').format('YYYY-MM-DD');
+    try {
+      const data = {
+        expiry_date: next_expiry_date,
+        plan_identifier: 'me.fortythree.iap.onemonth',
+        platform: 'web',
+        receipt:JSON.stringify(status)
+      };
+      const res = await UpdateSubscription(user.currentUser.token,data)
+      if(res.success){
+           dispatch(setUser({
+              ...user.currentUser,
+              is_subscribed:res.data.is_subscribed,
+              expiry_date:res.data.expiry_date,
+              days_left:res.data.days_left,
+              plan_title:res.data.plan_title
+          }));
+          alert("Subscription Updated Successfully!")
+        }
+        if(res.success===false){
+          alert("Error, Try Again")
+        }
+        setisloading(false);
+      console.log(res,'res')
+    } catch (err) {
+      console.log(err);
+      alert("Error, Try Again")
+      setisloading(false);
+    }
+  };
+  const CheckStatus = async () => {
+    let ids = localStorage.getItem('sessionId');
+    // console.log(ids, 'ids');
+    if (ids) {
+      clearInterval(interval);
+      try {
+        const CheckStatus = await StripeStatus(ids);
+        console.log(CheckStatus, 'check');
+        if (CheckStatus.success) {
+          if (
+            CheckStatus.data.status.payment_status === 'paid' &&
+            CheckStatus.data.status.status === 'complete'
+          )
+            console.log(true);
+            UpdateSub(CheckStatus.data.status)
+          //   dispatch(setUser({
+          //     ...user.currentUser,
+          //     is_subscribed:CheckStatus.data.is_subscribed,
+          //     expiry_date:CheckStatus.data.expiry_date,
+          //     days_left:CheckStatus.data.days_left,
+          //     plan_title:CheckStatus.data.plan_title
+          // }));
+        }
+        else{
+          alert('Transaction Failed!')
+        }
+      } catch (error) {
+        console.error('Error fetching Stripe status:', error);
+      }
+    }
+  };
+  // console.log(isloading,'loading')
   const handleSubscribe = async () => {
     try {
       const response = await StripePay();
       if (response.data && response.data.data.CheckoutUrl) {
         // Open the CheckoutUrl in a new tab
+        localStorage.removeItem('sessionId');
         window.open(response.data.data.CheckoutUrl, '_blank');
-    }
-      console.log(response)
+        setisloading(true);
+        interval = setInterval(CheckStatus, 5000);
+      }
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      setisloading(false);
     }
-  }
+  };
   return (
-    <PageContainer title="Upgrade your plan" description="Upgrade your plan">
-      <Breadcrumb title="Upgrade Your Plan" subtitle="Select from the following" />
-      <AppCard className='centering'><Box className='boxSize'>
-        <Typography className='heading' fontWeight={800}>Get 43Me now & stay organised </Typography>
-        <Typography
-          color={".main"}
-          mt={1}
-          variant="subtitle1"
-          fontWeight={600}
-          width='50%'
-        >Full access : Get Access to your tickler file.
-          Create And Manage unlimited tasks.
-          Access from multiple devices</Typography>
-        <BlankCard>
-
-          <CardContent>
-            <Box className='cardRocket'>
-              <Box><Image
-                src={"/images/rocket.png"}
-                alt="bg" width={250} height={250}
-                style={{
-                  width: "100%",
-                  // maxWidth: "500px",  maxHeight: '500px',
-                }}
-              /></Box>
-              <Box>
-                <Typography
-                  color={".main"}
-                  variant="subtitle1"
-                  fontWeight={600}
-                  fontSize={'18px'}
-                >
-                  Full Access
-                </Typography>
-                <Typography
-                  color={".main"}
-                  variant="subtitle1"
-                  fontSize={'18px'}
-                  fontWeight={600}
-                >
-                  One Month Subscription
-                </Typography>
-                <Typography
-                  color={".main"}
-                  variant="subtitle1"
-                  fontSize={'18px'}
-                  fontWeight={600}
-                >
-                  270.00
-                </Typography></Box>
-              <Box><Button className='subscribe' onClick={handleSubscribe}>Subscribe</Button></Box>
-            </Box>
-          </CardContent>
-        </BlankCard>
-        {/* <BlankCard>
+    <AuthRoute> 
+    <>
+      <PageContainer title="Upgrade your plan" description="Upgrade your plan">
+        <Breadcrumb title="Upgrade Your Plan" subtitle="Select from the following" />
+        <AppCard className="centering">
+          <Box className="boxSize">
+            <Typography className="heading" fontWeight={800}>
+              Get 43Me now & stay organised{' '}
+            </Typography>
+            <Typography color={'.main'} mt={1} variant="subtitle1" fontWeight={600} width="50%">
+              Full access : Get Access to your tickler file. Create And Manage unlimited tasks.
+              Access from multiple devices
+            </Typography>
+            <BlankCard>
+              <CardContent>
+                <Box className="cardRocket">
+                  <Box>
+                    <Image
+                      src={'/images/rocket.png'}
+                      alt="bg"
+                      width={250}
+                      height={250}
+                      style={{
+                        width: '100%',
+                        // maxWidth: "500px",  maxHeight: '500px',
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      color={'.main'}
+                      variant="subtitle1"
+                      fontWeight={600}
+                      fontSize={'18px'}
+                    >
+                      Full Access
+                    </Typography>
+                    <Typography
+                      color={'.main'}
+                      variant="subtitle1"
+                      fontSize={'18px'}
+                      fontWeight={600}
+                    >
+                      One Month Subscription
+                    </Typography>
+                    <Typography
+                      color={'.main'}
+                      variant="subtitle1"
+                      fontSize={'18px'}
+                      fontWeight={600}
+                    >
+                      270.00
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Button className="subscribe" onClick={handleSubscribe}>
+                      Subscribe
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </BlankCard>
+            {/* <BlankCard>
        
         <CardContent>
           1 Year Plan
         </CardContent>
       </BlankCard> */}
-      </Box></AppCard>
-    </PageContainer>
+          </Box>
+        </AppCard>
+      </PageContainer>
+      {isloading && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100vw',
+            position: 'fixed',
+            top: '0',
+            left: '10%',
+            height: '100vh',
+            zIndex: '2000',
+            background: '#cccccc57',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+    </>
+    </AuthRoute>
   );
 };
 

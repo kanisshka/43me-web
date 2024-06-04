@@ -10,6 +10,7 @@ import { UpdatePassword } from '@/utils/apiCalls';
 import { setUser } from '@/store/user/userSlice';
 import { useRouter } from 'next/navigation';
 // import Box from '@mui/material'
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
 const UpdatePassword1 = () => {
   const router = useRouter();
   // const moment = require('moment-timezone');
@@ -75,6 +76,7 @@ const UpdatePassword1 = () => {
     }
   };
   return (
+    <AuthRoute> 
     <PageContainer title="Change Password" description="this is Contact">
       <Breadcrumb title="Change Password" subtitle="Update Your Password" />
       <AppCard>
@@ -123,6 +125,7 @@ const UpdatePassword1 = () => {
         </Box>
       </AppCard>
     </PageContainer>
+    </AuthRoute>
   );
 };
 

@@ -40,24 +40,38 @@ const SecondSet = () => {
   const defaultTime1 = moment().set({ hour: 13, minute: 0, second: 0, millisecond: 0 });
   const defaultTime2 = moment().set({ hour: 17, minute: 0, second: 0, millisecond: 0 });
   const dispatch = useDispatch();
-  let form = localStorage.getItem('format')
+  let form = localStorage.getItem('format');
   const [selectedFormat, setSelectedFormat] = useState(form);
 
   const handleFormatChange = (event) => {
     setSelectedFormat(event.target.value);
-    setFormD(true)
-    
+    setFormD(true);
+  };
+  const getInitialMidValue = () => {
+    const storedMid = localStorage.getItem('mid');
+    return storedMid ? new Date(storedMid) : defaultTime1.toDate();
+  };
+  const getInitialMorValue = () => {
+    const storedMid = localStorage.getItem('mor');
+    return storedMid ? new Date(storedMid) : defaultTime.toDate();
+  };
+  const getInitialEveValue = () => {
+    const storedMid = localStorage.getItem('eve');
+    return storedMid ? new Date(storedMid) : defaultTime2.toDate();
   };
   const router = useRouter();
-  const [value2, setValue2] = React.useState(defaultTime.toDate());
-  const [valuemid, setValuemid] = React.useState(defaultTime1.toDate());
-  const [valueeve, setValueeve] = React.useState(defaultTime2.toDate());
+  const isMorning= localStorage.getItem('morRemind')
+  const isEvening= localStorage.getItem('eveRemind')
+  const isMidday= localStorage.getItem('midRemind')
+  const [value2, setValue2] = React.useState(getInitialMorValue);
+  const [valuemid, setValuemid] = React.useState(getInitialMidValue);
+  const [valueeve, setValueeve] = React.useState(getInitialEveValue);
   const [morningRemind, setMorningRemind] = useState(false);
   const [value, setValue] = useState(user?.currentUser.user.timezone);
-  const [morning, setMorning] = useState(false);
+  const [morning, setMorning] = useState(isMorning==='true');
   const [formD, setFormD] = useState(false);
-  const [mid, setMid] = useState(false);
-  const [evening, setEvening] = useState(false);
+  const [mid, setMid] = useState(isMidday==='true');
+  const [evening, setEvening] = useState(isEvening==='true');
   const handleChange = (val) => {
     setValue(val);
     setMorningRemind(true);
@@ -82,18 +96,33 @@ const SecondSet = () => {
   ];
   const handleSubmit = async () => {
     try {
-      console.log("fv")
+      // console.log("fv")
       if (mid) {
         localStorage.setItem('mid', valuemid);
+        localStorage.setItem('midRemind', mid);
       }
       if (evening) {
         localStorage.setItem('eve', valueeve);
+        localStorage.setItem('eveRemind', evening);
       }
       if (morning) {
         localStorage.setItem('mor', value2);
+        localStorage.setItem('morRemind', morning);
       }
-      if(formD){
-        localStorage.setItem('format',selectedFormat)
+      if (!mid) {
+        localStorage.removeItem('mid');
+        localStorage.setItem('midRemind', mid);
+      }
+      if (!evening) {
+        localStorage.removeItem('eve');
+        localStorage.setItem('eveRemind', evening);
+      }
+      if (!morning) {
+        localStorage.removeItem('mor');
+        localStorage.setItem('morRemind', morning);
+      }
+      if (formD) {
+        localStorage.setItem('format', selectedFormat);
       }
       if (morningRemind === true) {
         const params = {
@@ -122,6 +151,7 @@ const SecondSet = () => {
         );
       }
       alert('UPDATED SUCCESSFULLY!');
+      location.reload();
       // router.push('/');
     } catch (err) {
       console.log(err);
@@ -130,7 +160,7 @@ const SecondSet = () => {
   const onClose = () => {
     router.push('/');
   };
-  console.log(morningRemind, 'morning');
+  // console.log(morningRemind, 'morning');
   return (
     <Box style={{ marginLeft: '25px', width: '100%' }}>
       <Typography variant="h6" style={{ margin: '20px auto' }}>
@@ -165,7 +195,12 @@ const SecondSet = () => {
       <FormControlLabel
         value="start"
         control={
-          <Switch color="primary" onChange={(e) => setMorning(e.target.checked)} className="swit" />
+          <Switch
+            color="primary"
+            onChange={(e) => setMorning(e.target.checked)}
+            className="swit"
+            checked={morning}
+          />
         }
         label="Morning reminder"
         labelPlacement="start"
@@ -208,7 +243,12 @@ const SecondSet = () => {
       <FormControlLabel
         value="start"
         control={
-          <Switch color="primary" onChange={(e) => setMid(e.target.checked)} className="swit" />
+          <Switch
+            color="primary"
+            onChange={(e) => setMid(e.target.checked)}
+            className="swit"
+            checked={mid}
+          />
         }
         label="Mid Day reminder"
         className="reminders"
@@ -244,7 +284,12 @@ const SecondSet = () => {
       <FormControlLabel
         value="start"
         control={
-          <Switch color="primary" onChange={(e) => setEvening(e.target.checked)} className="swit" />
+          <Switch
+            color="primary"
+            onChange={(e) => setEvening(e.target.checked)}
+            className="swit"
+            checked={evening}
+          />
         }
         label="Evening reminder"
         className="reminders"
@@ -288,7 +333,7 @@ const SecondSet = () => {
             name="dateFormats"
             value={selectedFormat}
             onChange={handleFormatChange}
-            className='radioDate'
+            className="radioDate"
           >
             {dateFormats.map((format, index) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
@@ -297,19 +342,19 @@ const SecondSet = () => {
                   control={<Radio style={{ display: 'none' }} />}
                   label={format.title}
                   onChange={handleFormatChange}
-                  />
-                  {selectedFormat === format.title && <CheckIcon />}
+                />
+                {selectedFormat === format.title && <CheckIcon />}
               </div>
             ))}
           </RadioGroup>
         </FormControl>
       </Box>
       <Box>
-        <Button onClick={onClose} color="primary1" className='buttonSet'>
+        <Button onClick={onClose} color="primary1" className="buttonSet">
           Cancel
         </Button>
         <Button
-        className='buttonSet'
+          className="buttonSet"
           // disabled={title === ''}
           // onClick={(e) => {
           //   e.preventDefault();

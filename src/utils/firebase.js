@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getMessaging, getToken, isSupported } from 'firebase/messaging';
-
+import { onBackgroundMessage } from "firebase/messaging/sw";
 const initializeFirebaseMessaging = async () => {
   // Check if browser supports necessary features for Firebase Messaging
   if (!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) {
@@ -26,7 +26,7 @@ const messaging = getMessaging(app);
 
  try {
   const permission = await Notification.requestPermission();
-  // console.log(permission);
+  console.log(permission);
   if(permission==="granted"){
   
   getToken(messaging, { vapidKey: "BAZINr-HZoli3EJZndiUnpyWImGxtnzb5pdWXUUzU8LTvO7uKnzJoB2A_lERTRH7FQHgE9MjgEXp7zEAxhwUA3M" })
@@ -34,6 +34,7 @@ const messaging = getMessaging(app);
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
         // ...
+        localStorage.setItem('CurrentToken',currentToken)
         // console.log(currentToken);
       } else {
         // Show permission request UI
@@ -56,5 +57,6 @@ catch (error) {
   // console.log(token)
 
   // }
+  return messaging;
 };
 export default initializeFirebaseMessaging;

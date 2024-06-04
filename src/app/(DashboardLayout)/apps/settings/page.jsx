@@ -6,8 +6,10 @@ import Breadcrumb from '../../layout/shared/breadcrumb/Breadcrumb'
 import { Box, Divider } from '@mui/material'
 import FirstSet from '../../components/apps/FirstSet'
 import SecondSet from '../../components/apps/SecondSet'
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute'
 const Settings = () => {
   return (
+    <AuthRoute> 
     <PageContainer title="Settings" description="43me | Settings">
       <Breadcrumb title="Settings"  />
         <AppCard>
@@ -18,6 +20,7 @@ const Settings = () => {
         </Box>
         </AppCard>
     </PageContainer>
+    </AuthRoute>
   )
 }
 

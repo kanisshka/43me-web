@@ -5,13 +5,16 @@ import React,{useEffect} from 'react'
 
 const Cancel = () => {
   useEffect(() => {
-    const redirectTimeout = setTimeout(() => {
-      window.location.href = '/'; // Redirect to '/redirected-page' after 5 seconds
-    }, 5000); // 5000 milliseconds = 5 seconds
-
-    return () => {
-      clearTimeout(redirectTimeout);
-    };
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    if (sessionId) {
+      localStorage.setItem('sessionId',sessionId)
+      // console.log('Checkout Session ID:', sessionId); // Log the Checkout Session ID to the console
+    }
+    setTimeout(function() {
+      // Close the current tab
+      window.close();
+    }, 5000); 
   }, []);
 
   return (
