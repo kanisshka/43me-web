@@ -7,8 +7,9 @@ import { ThemeSettings } from '@/utils/theme/Theme';
 import { store, persistor } from '@/store/store';
 import { Notifications } from 'react-push-notification';
 import { GetUser, SendNotify } from '@/utils/apiCalls';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import { AppState } from "@/store/store";
+import { updateDaysLeft } from '@/store/user/userSlice';
 import { logout } from '@/store/user/userSlice';
 import { Provider } from 'react-redux';
 import './global.css';
@@ -28,10 +29,10 @@ import { messaging } from '../../public/firebase-messaging-sw';
 import { onMessage } from 'firebase/messaging';
 export const MyApp = ({ children }) => {
   const theme = ThemeSettings();
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const customizer = useSelector((state) => state.customizer);
   const user = useSelector((state) => state.user);
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     initializeFirebaseMessaging();
 
@@ -108,12 +109,22 @@ const dispatch = useDispatch()
       const res = await GetUser(user?.currentUser?.token);
       // console.log(res, 'userinfo');
       // console.log(res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1])
-      const givenDate = new Date(res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.expiry_date);
+      const givenDate = new Date(
+        res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.expiry_date,
+      );
       const currentDate = new Date();
-      if (givenDate < currentDate && res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.status==="inactive") {
+      const diffTime = givenDate - currentDate;
+      const differenceInDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
+      // setDaysLeft(differenceInDays);
+      // console.log(differenceInDays,'days')
+      dispatch(updateDaysLeft(differenceInDays));
+      if (
+        givenDate < currentDate &&
+        res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.status === 'inactive'
+      ) {
         dispatch(logout());
-        router.replace('/auth/auth1/login')
-      } 
+        router.replace('/auth/auth1/login');
+      }
     };
     ftc();
   }, []);

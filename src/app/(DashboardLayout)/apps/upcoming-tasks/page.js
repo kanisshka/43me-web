@@ -103,8 +103,8 @@ const Upcoming = () => {
           <div className="flexing">
             {' '}
             <Box sx={{ px: 2 }}>
-             <List sx={{ pt: 0 }}>
-              {hasItemsWithCount ? 
+              <List sx={{ pt: 0 }}>
+                {hasItemsWithCount ?
                 (list?.data[0]?.data.slice(1, 31).map((item) => (
                   <>
                   {item.count > 0 && <><Link href={`/apps/view-all/${item.id}`}>

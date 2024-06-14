@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import AuthForgotPassword from '../../authForms/AuthForgotPassword';
+import AuthForgotPassword from '../auth/authForms/AuthForgotPassword';
 import Image from 'next/image';
 
 export default function ForgotPassword() {
@@ -16,8 +16,8 @@ export default function ForgotPassword() {
         item
         xs={12}
         sm={12}
-        lg={8}
-        xl={9}
+        lg={7}
+        xl={8}
         sx={{
           position: 'relative',
           '&:before': {
@@ -62,8 +62,8 @@ export default function ForgotPassword() {
         item
         xs={12}
         sm={12}
-        lg={4}
-        xl={3}
+        lg={5}
+        xl={4}
         display="flex"
         justifyContent="center"
         alignItems="center"

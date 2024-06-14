@@ -164,9 +164,9 @@ const TaskPanel = ({ item, editing, onTaskEdit, onTaskMove }) => {
   useEffect(() => {
     if (item?.tags.length > 0) {
       const uniqueTagsArray = [...new Set(item.tags.map((obj) => obj.tag))];
-      console.log(uniqueTagsArray,'RRA')
+      // console.log(uniqueTagsArray,'RRA')
       const uniqueTagsString = uniqueTagsArray.join(',');
-      console.log(uniqueTagsString)
+      // console.log(uniqueTagsString)
       let edit = item?.tags.map((obj) => obj.tag).join(',');
       setTags(uniqueTagsString);
       const tagsArray = [...new Set(edit.split(','))];

@@ -1,5 +1,5 @@
 'use client';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
@@ -18,7 +18,6 @@ import Events from '@/app/(DashboardLayout)/EventData';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendar.css';
 import axios from 'axios';
-import CircularProgress from '@mui/material/CircularProgress';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import { IconCheck } from '@tabler/icons-react';
@@ -27,13 +26,13 @@ import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
 import AppCard from '../../components/shared/AppCard';
 import Image from 'next/image';
-import { useSelector, useDispatch } from 'react-redux';
-import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
-import { StripePay, StripeStatus,UpdateSubscription } from '@/utils/apiCalls';
+import { useSelector,useDispatch } from 'react-redux';
+// import { StripePay } from '@/utils/apiCalls';
 moment.locale('en-GB');
-import { setUser } from '@/store/user/userSlice';
 const localizer = momentLocalizer(moment);
-
+import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
+import { StripePay,StripeStatus,UpdateSubscription  } from '@/utils/apiCalls';
+import { setUser } from '@/store/user/userSlice'; 
 const Subscription = () => {
   const dispatch = useDispatch();
   let interval;
@@ -44,10 +43,10 @@ const Subscription = () => {
   const [title, setTitle] = React.useState('');
   const [slot, setSlot] = React.useState();
   const [start, setStart] = React.useState();
-  const router = useRouter();
+  const router = useRouter()
   const [end, setEnd] = React.useState();
   const [color, setColor] = React.useState('default');
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState()
   const [update, setUpdate] = React.useState();
   function convertDateStringToDateObject(dateString) {
     // Assuming dateString is in the format "DD/MM"
@@ -72,7 +71,7 @@ const Subscription = () => {
       id: 2,
       eColor: '#eda83b',
       value: 'secColor',
-    },
+    }
     // },
     // {
     //   id: 3,
@@ -98,11 +97,12 @@ const Subscription = () => {
   };
 
   const editEvent = (event) => {
-    console.log(event, 'a');
+    console.log(event, 'a')
     if (event.title > 0) {
-      router.push(`/apps/view-all/${event.id}`);
-    } else {
-      setOpen(true);
+      router.push(`/apps/view-all/${event.id}`)
+    }
+    else {
+      setOpen(true)
     }
     // setOpen(true);
     // const newEditEvent = calevents.find((elem) => elem.title === event.title);
@@ -181,11 +181,11 @@ const Subscription = () => {
   };
   const UpdateSub = async (status) => {
     const dat = moment(new Date());
-    const next_expiry_date = dat.add(1, 'months').format('YYYY-MM-DD');
+    const next_expiry_date = dat.add(1, 'years').format('YYYY-MM-DD');
     try {
       const data = {
         expiry_date: next_expiry_date,
-        plan_identifier: 'me.fortythree.iap.onemonth',
+        plan_identifier: 'me.fortythree.iap.oneyear',
         platform: 'web',
         receipt:JSON.stringify(status)
       };
@@ -242,7 +242,6 @@ const Subscription = () => {
       }
     }
   };
-  // console.log(isloading,'loading')
   const handleSubscribe = async () => {
     try {
       const response = await StripePay();
@@ -252,85 +251,79 @@ const Subscription = () => {
         window.open(response.data.data.CheckoutUrl, '_blank');
         setisloading(true);
         interval = setInterval(CheckStatus, 5000);
-      }
+    }
+      console.log(response)
     } catch (err) {
-      console.log(err);
+      console.log(err)
       setisloading(false);
     }
-  };
+  }
   return (
-    <AuthRoute> 
+   <AuthRoute>
     <>
-      <PageContainer title="Upgrade your plan" description="Upgrade your plan">
-        <Breadcrumb title="Upgrade Your Plan" subtitle="Select from the following" />
-        <AppCard className="centering">
-          <Box className="boxSize">
-            <Typography className="heading" fontWeight={800}>
-              Get 43Me now & stay organised{' '}
-            </Typography>
-            <Typography color={'.main'} mt={1} variant="subtitle1" fontWeight={600} width="50%">
-              Full access : Get Access to your tickler file. Create And Manage unlimited tasks.
-              Access from multiple devices
-            </Typography>
-            <BlankCard>
-              <CardContent>
-                <Box className="cardRocket">
-                  <Box>
-                    <Image
-                      src={'/images/rocket.png'}
-                      alt="bg"
-                      width={250}
-                      height={250}
-                      style={{
-                        width: '100%',
-                        // maxWidth: "500px",  maxHeight: '500px',
-                      }}
-                    />
-                  </Box>
-                  <Box>
-                    <Typography
-                      color={'.main'}
-                      variant="subtitle1"
-                      fontWeight={600}
-                      fontSize={'18px'}
-                    >
-                      Full Access
-                    </Typography>
-                    <Typography
-                      color={'.main'}
-                      variant="subtitle1"
-                      fontSize={'18px'}
-                      fontWeight={600}
-                    >
-                      One Year Subscription
-                    </Typography>
-                    <Typography
-                      color={'.main'}
-                      variant="subtitle1"
-                      fontSize={'18px'}
-                      fontWeight={600}
-                    >
-                      $24.99
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Button className="subscribe" onClick={handleSubscribe}>
-                      Subscribe
-                    </Button>
-                  </Box>
-                </Box>
-              </CardContent>
-            </BlankCard>
-            {/* <BlankCard>
+   <PageContainer title="Upgrade your plan" description="Upgrade your plan">
+      <Breadcrumb title="Upgrade Your Plan" subtitle="Select from the following" />
+      <AppCard className='centering'><Box className='boxSize'>
+        <Typography className='heading' fontWeight={800}>Get 43Me now & stay organised </Typography>
+        <Typography
+          color={".main"}
+          mt={1}
+          variant="subtitle1"
+          fontWeight={600}
+          width='50%'
+        >Full access : Get Access to your tickler file.
+          Create And Manage unlimited tasks.
+          Access from multiple devices</Typography>
+        <BlankCard>
+
+          <CardContent>
+            <Box className='cardRocket'>
+              <Box><Image
+                src={"/images/rocket.png"}
+                alt="bg" width={250} height={250}
+                style={{
+                  width: "100%",
+                  // maxWidth: "500px",  maxHeight: '500px',
+                }}
+              /></Box>
+              <Box>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                  fontSize={'18px'}
+                >
+                  Full Access
+                </Typography>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontSize={'18px'}
+                  fontWeight={600}
+                >
+                  One Year Subscription
+                </Typography>
+                <Typography
+                  color={".main"}
+                  variant="subtitle1"
+                  fontSize={'18px'}
+                  fontWeight={600}
+                >
+                   $24.99
+                </Typography></Box>
+              <Box><Button className='subscribe' onClick={handleSubscribe}>Subscribe</Button></Box>
+            </Box>
+          </CardContent>
+        </BlankCard>
+        {/* <BlankCard>
        
         <CardContent>
           1 Year Plan
         </CardContent>
       </BlankCard> */}
-          </Box>
-        </AppCard>
-      </PageContainer>
-      {isloading && (
+      </Box></AppCard>
+    </PageContainer>
+    {isloading && (
         <Box
           sx={{
             display: 'flex',

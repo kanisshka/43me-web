@@ -12,6 +12,11 @@
     flex-wrap: wrap;
     gap: 7px;
 }
+.modernize-1dgetqm-MuiFormLabel-root-MuiInputLabel-root{
+    top: 50%!important;
+    -webkit-transform: translate(15%, -50%) scale(1)!important;
+
+}
 .main_con{
 display:flex ;
 flex-direction: row;

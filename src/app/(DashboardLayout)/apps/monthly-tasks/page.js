@@ -104,7 +104,7 @@ const Monthly = () => {
             {' '}
             <Box sx={{ px: 2 }}>
               <List sx={{ pt: 0 }}>
-                {hasItemsWithCount ? (list?.data[1]?.data.map((item) => (
+              {hasItemsWithCount ? (list?.data[1]?.data.map((item) => (
                   <>
                   {item.count>0 && <><Link href={`/apps/view-all/${item.id}`}>
                     <DaysListUpcoming item={item} key={item.id} />

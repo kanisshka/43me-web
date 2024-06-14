@@ -9,7 +9,7 @@ import SecondSet from '../../components/apps/SecondSet'
 import AuthRoute from '../../layout/vertical/sidebar/AuthRoute'
 const Settings = () => {
   return (
-    <AuthRoute> 
+    <AuthRoute>
     <PageContainer title="Settings" description="43me | Settings">
       <Breadcrumb title="Settings"  />
         <AppCard>
@@ -19,8 +19,7 @@ const Settings = () => {
             <SecondSet/>
         </Box>
         </AppCard>
-    </PageContainer>
-    </AuthRoute>
+    </PageContainer></AuthRoute>
   )
 }
 

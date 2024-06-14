@@ -46,13 +46,18 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       // console.log(action.payload,'data')
       state.currentUser = action.payload ;
-    },    logout: (state) => {
+      state.isAuthenticated = true;
+
+    }, 
+    updateDaysLeft: (state, action) => {
+      state.daysLeft = action.payload;
+    },   logout: (state) => {
       state.currentUser = null;
       state.isAuthenticated = false;
     },
   }
 })
 
-export const { setUser, logout, signupStart, signupSuccess, signupFailure, loginFailure , loginSuccess , loginStart } = userSlice.actions
+export const { setUser,updateDaysLeft, logout, signupStart, signupSuccess, signupFailure, loginFailure , loginSuccess , loginStart } = userSlice.actions
 
 export default userSlice.reducer

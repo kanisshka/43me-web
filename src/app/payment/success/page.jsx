@@ -3,10 +3,9 @@ import { Box, Typography } from '@mui/material'
 import React,{useEffect} from 'react'
 // import {useHistory} from 'react-router-dom'; // Assuming you're using react-router-dom for routing
 import { useParams } from 'next/navigation'
-
 const Success = () => {
-
   useEffect(() => {
+   
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
     if (sessionId) {
@@ -16,7 +15,7 @@ const Success = () => {
     setTimeout(function() {
       // Close the current tab
       window.close();
-    }, 5000); 
+    }, 5000);
   }, []);
 
   return (

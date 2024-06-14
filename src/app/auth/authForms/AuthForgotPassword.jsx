@@ -9,6 +9,21 @@ import { ForgotPassWord } from '@/utils/apiCalls';
 import AlertCart from '@/app/(DashboardLayout)/components/apps/ecommerce/productCart/AlertCart';
 export default function AuthForgotPassword() {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const handleEmailChange = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    if (isValidEmail(emailValue)) {
+      setEmailError('');
+    } else {
+      setEmailError('Please enter a valid email address');
+    }
+  };
   const [text, setText] = useState('');
   const router = useRouter()
   const [open, setOpen] = useState(false);
@@ -24,7 +39,7 @@ export default function AuthForgotPassword() {
         setOpen(true);
         setText('Email Sent Successfully!');
         setTimeout(() => {
-          router.push('/auth/auth1/login');
+          router.push('/login');
         }, 3000);
       }
     } catch (err) {
@@ -45,7 +60,9 @@ export default function AuthForgotPassword() {
           >
           Email Address
         </CustomFormLabel>
-        <CustomTextField id="reset-email" variant="outlined" fullWidth placeholder='Enter your email here'           onChange={(e) => setEmail(e.target.value)}
+        <CustomTextField id="reset-email" variant="outlined" fullWidth placeholder='Enter your email here'          onChange={handleEmailChange}
+        error={!!emailError}
+        helperText={emailError}
  value={email}/>
 
         <Button
@@ -56,10 +73,11 @@ export default function AuthForgotPassword() {
           className="textW"
           onClick={handleForgot}
           // disabled={isEmailEmpty}
+          disabled={!email} // Disable button if email is empty
         >
           Forgot Password
         </Button>
-        <Button color="primary1" size="large" fullWidth href="/auth/auth1/login">
+        <Button color="primary1" size="large" fullWidth href="/login" component={Link}>
           Back to Login
         </Button>
         <AlertCart text={text} open={open} />

@@ -70,7 +70,7 @@ function getCurrentTimezone() {
         }
     }
     return (
-        <AuthRoute> 
+        <AuthRoute>
         <PageContainer title="Task List" description="this is Contact">
             <Breadcrumb title="Update Profile" subtitle="Update Your  Information" />
             <AppCard >
@@ -80,16 +80,13 @@ function getCurrentTimezone() {
                         <TextField id="standard-last" variant="standard" className='profField' value={last} onChange={handleLastNameChange}
 /></Box>
                     <Box><Typography className='UpdateText'>Email</Typography>
-                        <TextField id="standard-email" variant="standard" className='profField' value={email} onChange={handleEmailChange} InputProps={{
-    readOnly: true,
-  }}/></Box>
+                        <TextField id="standard-email" variant="standard" className='profField' value={email} onChange={handleEmailChange}/></Box>
                     <Box><Typography className='UpdateText'>Mobile</Typography>
                         <TextField id="standard-mob" variant="standard" className='profField' value={mob} onChange={handleMobileChange}/></Box>
               <Box className='updateDiv'>  <Button className='updateBut' onClick={handleSubmit}>Update</Button>
               </Box>     </Box>
             </AppCard>
-        </PageContainer>
-        </AuthRoute> 
+        </PageContainer></AuthRoute>
     )
 }
 

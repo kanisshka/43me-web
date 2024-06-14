@@ -8,21 +8,29 @@ import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elem
 import { Stack } from '@mui/system';
 import AuthSocialButtons from './AuthSocialButtons';
 import { useState } from 'react';
+import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
+import InputAdornment from '@mui/material/InputAdornment';
 import VerifyOtp from '@/app/(DashboardLayout)/components/dashboards/modern/VerifyOtp';
 import { useRouter } from 'next/navigation';
 import { signUp } from '@/utils/services';
 import { useDispatch } from 'react-redux';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AlertCart from '@/app/(DashboardLayout)/components/apps/ecommerce/productCart/AlertCart';
 const AuthRegister = ({ title, subtitle, subtext }) => {
   const [firstName, setFirstName] = useState('');
   const dispatch = useDispatch()
   const [lastName, setLastName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [verify, setVerify] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   // const data = {
   //   first_name:firstName,
   //   last_name:lastName,
@@ -30,6 +38,27 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
   //   email: email,
   //   password: password,
   // };
+  const [errorMOb, setErrorMOb] = useState('');
+
+  const handleMobileChange = (e) => {
+    const value = e.target.value;
+    if (/^[0-9]*$/.test(value)) {
+      if (value.length >= 7) {
+        setErrorMOb('');
+      } else {
+        setErrorMOb('Enter a Valid Number');
+      }
+      setMobile(value);
+      // setMobile(value);
+      // setErrorMOb('');
+    } else {
+      setErrorMOb('Only numbers are allowed');
+    }
+  };
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+  localStorage.setItem('format', 'DD/MM');
   const handleClose = () => {
     setVerify(false);
   };
@@ -113,24 +142,60 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
             variant="outlined"
             fullWidth
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setEmail(value);
+              const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!re.test(value)) {
+                setEmailError('Please enter a valid email address.');
+              } else {
+                setEmailError('');
+              }
+            }}
+            error={!!emailError}
+            helperText={emailError}
           />
           <CustomFormLabel htmlFor="email">Mobile No.</CustomFormLabel>
           <CustomTextField
-            id="email"
+            id="number"
             variant="outlined"
             fullWidth
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={handleMobileChange}
+            error={!!errorMOb}
+            helperText={errorMOb}
           />
           <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
           <CustomTextField
             id="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword(value);
+              if (value.length < 6) {
+                setPasswordError('Password must be at least 6 characters.');
+              } else {
+                setPasswordError('');
+              }
+            }}
+            error={!!passwordError}
+            helperText={passwordError}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end" style={{ marginLeft: 0 }}>
+                  <IconButton
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                    aria-label="toggle password visibility"
+                  >
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Stack>
       {error !== null ? <Typography className="errorStatement">{error}</Typography> : ''}
@@ -151,6 +216,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
         </Button>
       </Box>
       {subtitle}
+      {/* <AlertCart/> */}
       {
         verify === true && <VerifyOtp onClose={handleClose} open={verify} email={email}/>
       }

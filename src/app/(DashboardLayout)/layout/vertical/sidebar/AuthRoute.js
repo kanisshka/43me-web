@@ -31,15 +31,15 @@ const AuthRoute = ({ children }) => {
   const router = useRouter();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated); // Use useSelector directly
   const isDaysLeft = useSelector((state) => state.user.daysLeft); // Use useSelector directly
-  
+
   if (!isAuthenticated) {
-    router.replace('/auth/auth1/login');
+    router.replace('/login');
     return null; // Prevent rendering children if not authenticated
   }
   if (isAuthenticated && isDaysLeft===0) {
     const subscribed = useSelector((state) => state.user.currentUser.is_subscribed); // Use useSelector directly
     if(subscribed===false){
-    router.replace('/auth/auth1/login');
+    router.replace('/login');
     return null; // Prevent rendering children if not authenticated
   }}
   return children;

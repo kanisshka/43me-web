@@ -25,7 +25,7 @@ export const StripePay = async () => {
   //     method: 'post',
   //     maxBodyLength: Infinity,
   //     url: 'http://127.0.0.1:3005/v1/stripe',
-  //     headers: {
+  //     headers: { 
   //       'Content-Type': 'application/json'
   //     },
   //     data : data
@@ -42,19 +42,17 @@ export const StripePay = async () => {
   //   console.log(error);
   // }
   let data = JSON.stringify({
-    price: "price_1OrqRfKo9v7E5i0A90apaFyT" 
-    // price: 'price_1OHKmBSEqRExhJ6zWTPYDxjP',
+    "price": "price_1OrqRfKo9v7E5i0A90apaFyT"
   });
-
+  
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
     url: 'https://api.fortythree.me/v1/stripe',
-    // url: 'http://127.0.0.1:3005/v1/stripe',
-    headers: {
-      'Content-Type': 'application/json',
+    headers: { 
+      'Content-Type': 'application/json'
     },
-    data: data,
+    data : data
   };
   try {
     const response = await axios.request(config);
@@ -82,7 +80,7 @@ export const SendNotify = async (fcm, title, body) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://43meapi.ekahalwebsite.com/v1/notification-send',
+    url: `${process.env.NEXT_PUBLIC_APP}notification-send`,
     data: data,
   };
   axios
@@ -103,7 +101,7 @@ export const StripeStatus = async (id) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://43meapi.ekahalwebsite.com/v1/webhook',
+    url: `${process.env.NEXT_PUBLIC_APP}webhook`,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -129,7 +127,7 @@ export const UpdateSubscription = async (authToken, data) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://43meapi.ekahalwebsite.com/v1/web-subscription',
+    url: `${process.env.NEXT_PUBLIC_APP}web-subscription`,
     headers: {
       Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json',
@@ -154,7 +152,7 @@ export const UpdateSubscription = async (authToken, data) => {
 };
 export const EditTask = async (authToken, id, data) => {
   try {
-    console.log(authToken, data, 'data');
+    console.log(authToken, data, 'data')
     const response = await axios.put(`${process.env.NEXT_PUBLIC_APP}task/${id}`, data, {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -184,7 +182,8 @@ export const MoveTask = async (authToken, id, data) => {
 export const ResendCode = async (data) => {
   try {
     // console.log(authToken,data,'data')
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/resend_token`, data, {});
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/resend_token`, data, {
+    });
     console.log(response, 'ResendCode');
     return response;
   } catch (error) {
@@ -194,11 +193,8 @@ export const ResendCode = async (data) => {
 export const ForgotPassWord = async (data) => {
   try {
     // console.log(authToken,data,'data')
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_APP}auth/forgot-password`,
-      data,
-      {},
-    );
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/forgot-password`, data, {
+    });
     console.log(response, 'ForgotCode');
     return response;
   } catch (error) {
@@ -208,14 +204,15 @@ export const ForgotPassWord = async (data) => {
 export const ActiveAccount = async (data) => {
   try {
     // console.log(authToken,data,'data')
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/activation`, data, {});
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/activation`, data, {
+    });
     console.log(response, 'Activation');
     return response;
   } catch (error) {
     console.log(error);
   }
 };
-export const Update = async (authToken, data) => {
+export const Update = async (authToken,data) => {
   try {
     // console.log(authToken,data,'data')
     const response = await axios.put(`${process.env.NEXT_PUBLIC_APP}user`, data, {
@@ -243,7 +240,8 @@ export const GetUser = async (authToken) => {
     console.log(error);
   }
 };
-export const UpdatePassword = async (authToken, data) => {
+
+export const UpdatePassword = async (authToken,data) => {
   try {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}auth/change-password`, data, {
       headers: {
@@ -263,17 +261,17 @@ export const RemoveTask = async (authToken, task) => {
       id = task.baseTask_id;
     }
     let data = {
-      date: moment(task.date).format('YYYY-MM-DD'),
-    };
+      date: moment(task.date).format('YYYY-MM-DD')
+    }
     let config = {
       method: 'delete',
       maxBodyLength: Infinity,
       url: `${process.env.NEXT_PUBLIC_APP}task/${id}`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
+        'Authorization': `Bearer ${authToken}`
       },
-      data: data,
+      data: data
     };
     const response = await axios.request(config);
     console.log(response.data); // Log the response data
@@ -298,7 +296,7 @@ export const MarkAsDone = async (authToken, id, data) => {
 };
 export const AddNewTask = async (authToken, data) => {
   try {
-    console.log(authToken, data, 'data');
+    console.log(authToken, data, 'data')
     const response = await axios.post(`${process.env.NEXT_PUBLIC_APP}task`, data, {
       headers: {
         Authorization: `Bearer ${authToken}`,

@@ -34,8 +34,8 @@ const messaging = getMessaging(app);
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
         // ...
-        localStorage.setItem('CurrentToken',currentToken)
         // console.log(currentToken);
+        localStorage.setItem('CurrentToken',currentToken)
       } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');

@@ -1,6 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -26,13 +26,22 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   const [email, setEmail] = useState('');
   const router = useRouter();
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   localStorage.setItem('format', 'DD/MM');
   const handleClose = () => {
     setOpen(false);
   };
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+  useEffect(() => {
+    setIsButtonDisabled(!email || !password || !!emailError);
+  }, [email, password,emailError]);
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -71,7 +80,15 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
       setError('Enter a Valid Email');
     }
   };
-
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
   return (
     <>
       {title ? (
@@ -106,7 +123,9 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
             variant="outlined"
             fullWidth
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            error={!!emailError}
+            helperText={emailError}
           />
         </Box>
         <Box>
@@ -142,7 +161,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
           </FormGroup>
           <Typography
             component={Link}
-            href="/auth/auth1/forgot-password"
+            href="/forgot-password"
             fontWeight="500"
             sx={{
               textDecoration: 'none',
@@ -165,6 +184,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
           type="submit"
           onClick={handleSignIn}
           className="hoverPrimary"
+          disabled={isButtonDisabled}
         >
           Sign In
         </Button>

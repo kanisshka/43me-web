@@ -30,9 +30,9 @@ const Profile = () => {
 const handleLogout = () =>{
   // console.log('hi')
   dispatch(logout());
-    router.replace('/auth/auth1/login');
+    router.replace('/login');
 }
-// console.log(user)
+console.log(user,'update')
   return (
     <Box>
       <IconButton
@@ -93,9 +93,18 @@ const handleLogout = () =>{
               gap={1}
             >
               {/* <IconMail width={15} height={15} /> */}
-              Current Plan : {user?.currentUser?.plan_title}
+              {user?.currentUser !== null && (
+  <>
+    {user?.currentUser.plan ? (
+      <>Current Plan: {user.currentUser.plan.title}</>
+    ) : (
+      <>Current Plan: {user.currentUser.plan_title}</>
+    )}
+  </>
+)}
+
               <br/>
-              Days Left :             {user?.currentUser?.days_left}
+              Days Left :             {user?.daysLeft}
 
             </Typography>
           </Box>

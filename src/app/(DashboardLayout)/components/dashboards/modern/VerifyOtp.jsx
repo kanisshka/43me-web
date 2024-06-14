@@ -26,13 +26,20 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { IconChevronDown } from '@tabler/icons-react';
 import { ResendCode,ActiveAccount } from '@/utils/apiCalls';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import { setUser } from '@/store/user/userSlice';
+import AlertCart from '../../apps/ecommerce/productCart/AlertCart';
 const VerifyOtp = ({ onClose, open , email }) => {
   const router = useRouter();
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState('');
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false)
   const [value, setValue] = useState('never');
   const [error,setError] = useState('')
   const [start, setStart] = useState(new Date());
@@ -52,9 +59,17 @@ const VerifyOtp = ({ onClose, open , email }) => {
     };
     try {
       const respons = await ResendCode(data);
+      if(respons.data.success===true){
+        setTextShow(true);
+        setText('Code Sent Successfully!')
+        setTextSev('success')
+      }
       console.log(respons, 'respons');
     } catch (err) {
       console.log(err);
+      setTextShow(true);
+      setTextSev('error')
+        setText('Code Not Sent Successfully, Try Again!')
     }
   };
   const handleVerify = async () => {
@@ -68,6 +83,13 @@ const VerifyOtp = ({ onClose, open , email }) => {
         setError(res.data.message);
       }
       if (res.data.success === true) {
+        dispatch(setUser({
+          ...user.currentUser,
+          user: {
+              ...user.currentUser.user,
+              is_verified: true,
+          }
+      }));
         router.push('/')
         onClose()
       } else {
@@ -79,8 +101,12 @@ const VerifyOtp = ({ onClose, open , email }) => {
       console.log(err)
     }
   }
+  const handleSkip = () =>{
+    onClose()
+    router.push("/")
+  }
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} >
       <DialogContent>
         <Typography variant="h5" mb={2} fontWeight={700}>
           Enter Code
@@ -108,7 +134,7 @@ const VerifyOtp = ({ onClose, open , email }) => {
       </DialogContent>
       <DialogActions>
       {error !== null ? <Typography className="errorStatement">{error}</Typography> : ''}
-        <Button onClick={onClose} color="primary1">
+        <Button onClick={handleSkip} color="primary1">
           Skip
         </Button>
         <Button
@@ -129,6 +155,7 @@ const VerifyOtp = ({ onClose, open , email }) => {
       </DialogActions>
         <Box className="verifyBox">
         <Typography onClick={resendCode} className='didntCode'>Didn&apos;t get code? Send Again</Typography>
+        <AlertCart open={textShow} text={text} sev={textsev}/>
          </Box>   
     </Dialog>
   );
