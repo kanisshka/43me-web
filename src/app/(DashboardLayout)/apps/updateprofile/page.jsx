@@ -10,10 +10,14 @@ import { Update } from '@/utils/apiCalls'
 import { setUser } from '@/store/user/userSlice'
 import { useRouter } from 'next/navigation'
 import AuthRoute from '../../layout/vertical/sidebar/AuthRoute'
+import AlertCart from '../../components/apps/ecommerce/productCart/AlertCart'
 // import Box from '@mui/material'
 const UpdateProfile = () => {
     const router = useRouter()
     // const moment = require('moment-timezone');
+    const [text,setText]= useState('')
+    const [textsev,setTextSev]= useState('')
+    const [textShow,setTextShow]= useState(false) 
 const dispatch = useDispatch()
 function getCurrentTimezone() {
     return moment.tz.guess();
@@ -62,7 +66,9 @@ function getCurrentTimezone() {
                     timezone: getCurrentTimezone()
                 }
             }));
-            alert('UPDATED SUCCESSFULLY!')
+            setTextShow(true);
+            setText('UPDATED SUCCESSFULLY!')
+            setTextSev('success')
             router.push('/');
         }
         catch(err){
@@ -80,13 +86,16 @@ function getCurrentTimezone() {
                         <TextField id="standard-last" variant="standard" className='profField' value={last} onChange={handleLastNameChange}
 /></Box>
                     <Box><Typography className='UpdateText'>Email</Typography>
-                        <TextField id="standard-email" variant="standard" className='profField' value={email} onChange={handleEmailChange}/></Box>
+                        <TextField id="standard-email" variant="standard" className='profField' value={email} onChange={handleEmailChange}   InputProps={{
+            readOnly: true,
+        }}/></Box>
                     <Box><Typography className='UpdateText'>Mobile</Typography>
                         <TextField id="standard-mob" variant="standard" className='profField' value={mob} onChange={handleMobileChange}/></Box>
               <Box className='updateDiv'>  <Button className='updateBut' onClick={handleSubmit}>Update</Button>
               </Box>     </Box>
             </AppCard>
-        </PageContainer></AuthRoute>
+        </PageContainer>
+        <AlertCart open={textShow} text={text} sev={textsev}/></AuthRoute>
     )
 }
 

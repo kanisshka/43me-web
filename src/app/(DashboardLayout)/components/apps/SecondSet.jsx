@@ -33,6 +33,7 @@ import Avatar from '@mui/material/Avatar';
 import moment from 'moment';
 import { Update } from '@/utils/apiCalls';
 import CustomTextField from '../forms/theme-elements/CustomTextField';
+import AlertCart from './ecommerce/productCart/AlertCart';
 const SecondSet = () => {
   const user = useSelector((state) => state.user);
   // console.log(user);
@@ -73,7 +74,9 @@ const SecondSet = () => {
   const [formD, setFormD] = useState(false);
   const [mid, setMid] = useState(isMidday==='true');
   const [evening, setEvening] = useState(isEvening==='true');
-
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false) 
   const handleChange = (val) => {
     setValue(val);
     setMorningRemind(true);
@@ -152,7 +155,10 @@ const SecondSet = () => {
           }),
         );
       }
-      alert('UPDATED SUCCESSFULLY!');
+      setTextShow(true);
+      setText('UPDATED SUCCESSFULLY!')
+      setTextSev('success')
+      // alert('UPDATED SUCCESSFULLY!');
       location.reload();
       // router.push('/');
     } catch (err) {
@@ -164,6 +170,7 @@ const SecondSet = () => {
   };
   console.log(morningRemind, 'morning');
   return (
+    <>
     <Box style={{ marginLeft: '25px', width: '100%' }}>
       <Typography variant="h6" style={{ margin: '20px auto' }}>
         TIMEZONE
@@ -364,6 +371,7 @@ const SecondSet = () => {
         </Button>
       </Box>
     </Box>
+    <AlertCart open={textShow} text={text} sev={textsev}/></>
   );
 };
 

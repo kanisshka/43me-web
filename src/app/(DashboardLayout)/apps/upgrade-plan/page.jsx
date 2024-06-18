@@ -33,9 +33,13 @@ const localizer = momentLocalizer(moment);
 import AuthRoute from '../../layout/vertical/sidebar/AuthRoute';
 import { StripePay,StripeStatus,UpdateSubscription  } from '@/utils/apiCalls';
 import { setUser } from '@/store/user/userSlice'; 
+import AlertCart from '../../components/apps/ecommerce/productCart/AlertCart';
 const Subscription = () => {
   const dispatch = useDispatch();
   let interval;
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false) 
   const user = useSelector((state) => state.user);
   const [calevents, setCalEvents] = React.useState();
   const [isloading, setisloading] = React.useState(false);
@@ -198,16 +202,24 @@ const Subscription = () => {
               days_left:res.data.days_left,
               plan_title:res.data.plan_title
           }));
-          alert("Subscription Updated Successfully!")
+          setTextShow(true);
+          setText('Subscription Updated Successfully!')
+          setTextSev('success')
         }
         if(res.success===false){
-          alert("Error, Try Again")
+          // alert("Error, Try Again")
+          setTextShow(true);
+          setText('Error, Try Again')
+          setTextSev('error')
         }
         setisloading(false);
       console.log(res,'res')
     } catch (err) {
       console.log(err);
-      alert("Error, Try Again")
+      // alert("Error, Try Again")
+      setTextShow(true);
+          setText('Error, Try Again')
+          setTextSev('error')
       setisloading(false);
     }
   };
@@ -235,7 +247,10 @@ const Subscription = () => {
           // }));
         }
         else{
-          alert('Transaction Failed!')
+          // alert('Transaction Failed!')
+          setTextShow(true);
+          setText('Transaction Failed!')
+          setTextSev('error')
         }
       } catch (error) {
         console.error('Error fetching Stripe status:', error);
@@ -342,6 +357,7 @@ const Subscription = () => {
         </Box>
       )}
     </>
+    <AlertCart open={textShow} text={text} sev={textsev}/>
     </AuthRoute>
   );
 };

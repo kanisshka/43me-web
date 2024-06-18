@@ -28,11 +28,15 @@ import { AddNewTask } from '@/utils/apiCalls';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RemoveTask } from '@/utils/apiCalls';
+import AlertCart from '../../apps/ecommerce/productCart/AlertCart';
 import { Dialog, DialogContent, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 const Sure = ({ onClose, open ,item,onTaskMove}) => {
   const router = useRouter();
   const user = useSelector((state) => state.user);
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false) 
   const handleRemove = async () => {
     try {
         const response = await RemoveTask(user?.currentUser?.token, item);
@@ -42,7 +46,10 @@ const Sure = ({ onClose, open ,item,onTaskMove}) => {
         // setEdit(false);
         onClose();
         onTaskMove(item)
-        alert('Deleted Successfully!')
+        alert('Deleted Successfully!')   
+        setTextShow(true);
+        setText('Deleted Successfully!')
+        setTextSev('success')
         // onTaskEdit({ ...item, description: desc });
       }
     } catch (err) {
@@ -51,6 +58,7 @@ const Sure = ({ onClose, open ,item,onTaskMove}) => {
     }
   };
   return (
+    <>
     <Dialog open={open} onClose={onClose}>
       <DialogContent>
         <Typography variant="h5" mb={2} fontWeight={700}>
@@ -70,6 +78,7 @@ Are you sure you want to delete this task?        </Typography>
         </Button>
       </DialogActions>
     </Dialog>
+    <AlertCart open={textShow} text={text} sev={textsev}/></>
   );
 };
 

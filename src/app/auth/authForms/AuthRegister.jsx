@@ -17,6 +17,7 @@ import { signUp } from '@/utils/services';
 import { useDispatch } from 'react-redux';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import AlertCart from '@/app/(DashboardLayout)/components/apps/ecommerce/productCart/AlertCart';
 const AuthRegister = ({ title, subtitle, subtext }) => {
   const [firstName, setFirstName] = useState('');
@@ -39,7 +40,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
   //   password: password,
   // };
   const [errorMOb, setErrorMOb] = useState('');
-
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const handleMobileChange = (e) => {
     const value = e.target.value;
     if (/^[0-9]*$/.test(value)) {
@@ -63,6 +64,14 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
     setVerify(false);
   };
   const handleRegisterIn = async () => {
+    if (!executeRecaptcha) {
+      console.error('ReCAPTCHA not available');
+      return;
+    }
+
+    const gRecaptchaToken = await executeRecaptcha('register');
+    console.log(gRecaptchaToken,'gRecaptchaTokenregister')
+
     try {
       const data = {
         first_name: firstName,
@@ -70,6 +79,8 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
         mobile_no: mobile,
         email: email,
         password: password,
+        isWeb:true,
+        recaptchaToken:gRecaptchaToken
       };
       const response = await signUp(dispatch, data);
       console.log(response, 'register');

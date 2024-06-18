@@ -27,6 +27,7 @@ import { useRouter } from 'next/navigation';
 import initializeFirebaseMessaging from '@/utils/firebase';
 import { messaging } from '../../public/firebase-messaging-sw';
 import { onMessage } from 'firebase/messaging';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 export const MyApp = ({ children }) => {
   const theme = ThemeSettings();
   const dispatch = useDispatch();
@@ -153,6 +154,7 @@ export default function RootLayout({ children }) {
       <body>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
+          <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_APP_RECAPTCHA_KEY}>
             <Notifications />
             {loading ? (
               // eslint-disable-next-line react/no-children-prop
@@ -170,6 +172,7 @@ export default function RootLayout({ children }) {
                 <CircularProgress />
               </Box>
             )}
+            </GoogleReCaptchaProvider>
           </PersistGate>
         </Provider>
       </body>

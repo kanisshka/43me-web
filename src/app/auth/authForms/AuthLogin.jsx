@@ -1,6 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,6 +14,7 @@ import CustomCheckbox from '@/app/(DashboardLayout)/components/forms/theme-eleme
 import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import IconButton from '@mui/material/IconButton';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -32,6 +33,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   const [open, setOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   localStorage.setItem('format', 'DD/MM');
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const handleClose = () => {
     setOpen(false);
   };
@@ -41,12 +43,20 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
   };
   useEffect(() => {
     setIsButtonDisabled(!email || !password || !!emailError);
-  }, [email, password,emailError]);
+  }, [email, password, emailError]);
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const currentDate = new Date();
   const handleSignIn = async () => {
+    if (!executeRecaptcha) {
+      console.error('ReCAPTCHA not available');
+      return;
+    }
+
+    const gRecaptchaToken = await executeRecaptcha('login');
+
+    console.log(gRecaptchaToken,'gRecaptchaTokenlogin')
     try {
       const data = {
         email: email,
@@ -55,6 +65,8 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
       const response = await login(dispatch, {
         email,
         password,
+        isWeb:true,
+        recaptchaToken:gRecaptchaToken
       });
       const expiryDate = new Date(response.data.expiry_date);
       // console.log(currentDate,expiryDate, 'res');/
@@ -63,7 +75,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         setError(response.message);
       }
       if (response.success === true) {
-        if (response.data.days_left > 0 && response.data.is_subscribed===true) {
+        if (response.data.days_left > 0 && response.data.is_subscribed === true) {
           router.push('/');
         } else {
           setOpen(true);

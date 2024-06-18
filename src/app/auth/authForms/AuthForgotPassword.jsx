@@ -6,6 +6,7 @@ import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elem
 import CustomFormLabel from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel';
 import { useState } from 'react';
 import { ForgotPassWord } from '@/utils/apiCalls';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import AlertCart from '@/app/(DashboardLayout)/components/apps/ecommerce/productCart/AlertCart';
 export default function AuthForgotPassword() {
   const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ export default function AuthForgotPassword() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const handleEmailChange = (e) => {
     const emailValue = e.target.value;
     setEmail(emailValue);
@@ -28,9 +30,18 @@ export default function AuthForgotPassword() {
   const router = useRouter()
   const [open, setOpen] = useState(false);
   const handleForgot = async () => {
+    if (!executeRecaptcha) {
+      console.error('ReCAPTCHA not available');
+      return;
+    }
+
+    const gRecaptchaToken = await executeRecaptcha('forgotpassword');
+    console.log(gRecaptchaToken,'forgot')
     try {
       const data={
-        email:email
+        email:email,
+        isWeb:true,
+        recaptchaToken:gRecaptchaToken
       }
       // console.log(data,'data')
       const res = await ForgotPassWord(data);

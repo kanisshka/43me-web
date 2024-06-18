@@ -39,11 +39,14 @@ import { useSelector,useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import AlertCart from '../../apps/ecommerce/productCart/AlertCart';
 const NoDaysLeft = ({ onClose, open }) => {
   const router = useRouter();  
   const dispatch = useDispatch()
   const [isloading, setisloading] = React.useState(false);
-
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false) 
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState('');
   const DataImg = new FormData();
@@ -82,11 +85,17 @@ const NoDaysLeft = ({ onClose, open }) => {
               days_left:res.data.days_left,
               plan_title:res.data.plan_title
           }));
-          alert("Subscription Updated Successfully!")
+          setTextShow(true);
+          setText('Subscription Updated Successfully!')
+          setTextSev('success')
+          // alert("Subscription Updated Successfully!")
           onClose()
         }
         if(res.success===false){
-          alert("Error, Try Again")
+          setTextShow(true);
+          setText('Error, Try Again')
+          setTextSev('error')
+          // alert("Error, Try Again")
         }
         setisloading(false);
         // location.reload()
@@ -94,7 +103,10 @@ const NoDaysLeft = ({ onClose, open }) => {
       console.log(user,"user_info")
     } catch (err) {
       console.log(err);
-      alert("Error, Try Again")
+      // alert("Error, Try Again")
+      setTextShow(true);
+          setText('Error, Try Again')
+          setTextSev('error')
       setisloading(false);
     }
   };
@@ -151,7 +163,8 @@ const NoDaysLeft = ({ onClose, open }) => {
 
  
   return (
-    <> {isloading && (
+    <> 
+    {isloading && (
       <Box
         sx={{
           display: 'flex',
@@ -195,6 +208,7 @@ const NoDaysLeft = ({ onClose, open }) => {
         </Button>
       </DialogActions>
     </Dialog>
+    <AlertCart open={textShow} text={text} sev={textsev}/>
     </>
   );
 };

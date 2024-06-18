@@ -35,8 +35,12 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import AlertCart from '../../apps/ecommerce/productCart/AlertCart';
 const AddTask = ({ onClose, open }) => {
   const router = useRouter();
+  const [text,setText]= useState('')
+  const [textsev,setTextSev]= useState('')
+  const [textShow,setTextShow]= useState(false) 
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState('');
   const DataImg = new FormData();
@@ -147,7 +151,10 @@ const AddTask = ({ onClose, open }) => {
       // console.log(response, 'response');
       if (response?.status === 200) {
         onClose();
-        alert('Added Successfully');
+        setTextShow(true);
+        setText('Added Successfully')
+        setTextSev('success')
+        // alert('Added Successfully');
         // router.push('/apps/tasks')
         location.reload();
       }
@@ -206,6 +213,7 @@ const AddTask = ({ onClose, open }) => {
   };
   const { min, max } = getSliderMinMax();
   return (
+    <>
     <Dialog open={open} onClose={onClose}>
       <DialogContent>
         <Typography variant="h5" mb={2} fontWeight={700}>
@@ -410,6 +418,7 @@ const AddTask = ({ onClose, open }) => {
         </Button>
       </DialogActions>
     </Dialog>
+    <AlertCart open={textShow} text={text} sev={textsev}/></>
   );
 };
 
