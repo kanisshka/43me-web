@@ -23,7 +23,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { PersistGate } from 'redux-persist/integration/react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter , usePathname } from 'next/navigation';
 import initializeFirebaseMessaging from '@/utils/firebase';
 import { messaging } from '../../public/firebase-messaging-sw';
 import { onMessage } from 'firebase/messaging';
@@ -124,7 +124,7 @@ export const MyApp = ({ children }) => {
         res?.data[0].subscriptions[res?.data[0].subscriptions.length - 1]?.status === 'inactive'
       ) {
         dispatch(logout());
-        router.replace('/auth/auth1/login');
+        router.replace('/login');
       }
     };
     ftc();
@@ -146,15 +146,40 @@ export const MyApp = ({ children }) => {
 
 export default function RootLayout({ children }) {
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter()
+const pathname = usePathname()
+  console.log(pathname,'router')
   React.useEffect(() => {
     setTimeout(() => setLoading(true), 3000);
   }, []);
+  const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === '/forgot-password';
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-          <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_APP_RECAPTCHA_KEY}>
+          {isAuthPage ? (
+              <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_APP_RECAPTCHA_KEY}>
+                <Notifications />
+                {loading ? (
+                  <MyApp>{children}</MyApp>
+                ) : (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '100%',
+                      height: '100vh',
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                )}
+              </GoogleReCaptchaProvider>
+            ) : (
+          <>
             <Notifications />
             {loading ? (
               // eslint-disable-next-line react/no-children-prop
@@ -172,7 +197,7 @@ export default function RootLayout({ children }) {
                 <CircularProgress />
               </Box>
             )}
-            </GoogleReCaptchaProvider>
+            </> ) }
           </PersistGate>
         </Provider>
       </body>

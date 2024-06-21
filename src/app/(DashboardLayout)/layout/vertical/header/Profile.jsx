@@ -79,7 +79,7 @@ console.log(user,'update')
         <Stack direction="row" py={3} spacing={2} alignItems="center">
         <Avatar src={"/images/profile/user-1.jpg"} alt={"ProfileImg"} sx={{ width: 95, height: 95 }} />
           <Box>
-            <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
+            <Typography variant="subtitle2" color="textPrimary" fontWeight={600} style={{textTransform:"capitalize"}}>
             {user?.currentUser?.user.first_name}
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">

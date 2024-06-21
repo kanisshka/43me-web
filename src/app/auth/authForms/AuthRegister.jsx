@@ -147,7 +147,7 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-          <CustomFormLabel htmlFor="email">Email Adddress</CustomFormLabel>
+          <CustomFormLabel htmlFor="email">Email Address</CustomFormLabel>
           <CustomTextField
             id="MobileNo"
             variant="outlined"

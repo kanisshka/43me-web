@@ -88,10 +88,10 @@ const TodaysTask = () => {
       //   </CustomSelect>
       // }
     >
-                <Link href={`/apps/view-all/${dat}`}><Typography variant="subtitle2" fontWeight={600} className='absolutePosition'>View All</Typography></Link>
+              {tasks?.length > 0 && <Link href={`/apps/view-all/${dat}`}><Typography variant="subtitle2" fontWeight={600} className='absolutePosition'>View All</Typography></Link> }
     
       <TableContainer>
-        <Table
+      {tasks?.length > 0 ? <Table
           aria-label="simple table"
           sx={{
             whiteSpace: 'nowrap',
@@ -163,7 +163,7 @@ const TodaysTask = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </Table> : <Typography>No Tasks Found</Typography>}
       </TableContainer>
     </DashboardCard>
   );

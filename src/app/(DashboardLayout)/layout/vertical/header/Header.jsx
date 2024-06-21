@@ -80,7 +80,7 @@ const handleClose = () => {
         ) : null} */}
         {lgUp ? (
           <>
-           <Typography className="welcomeText">Hey, {user?.currentUser?.user.first_name}</Typography>
+           <Typography className="welcomeText" style={{textTransform:"capitalize"}}>Hey, {user?.currentUser?.user.first_name}</Typography>
           </>
         ) : null} 
 

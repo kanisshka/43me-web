@@ -33,8 +33,8 @@ export const Profile = () => {
           <Avatar alt="Remy Sharp" src={"/images/profile/user-1.jpg"} sx={{height: 40, width: 40}} />
 
           <Box>
-            <Typography variant="h6">{user?.currentUser?.user.first_name}</Typography>
-            <Typography variant="caption">{user?.currentUser?.user.last_name}</Typography>
+            <Typography variant="h6" style={{textTransform:"capitalize"}}>{user?.currentUser?.user.first_name}</Typography>
+            <Typography variant="caption" style={{textTransform:"capitalize"}}>{user?.currentUser?.user.last_name}</Typography>
           </Box>
           <Box sx={{ ml: 'auto' }}>
             <Tooltip title="Logout" placement="top">
